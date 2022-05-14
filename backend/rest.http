@@ -17,3 +17,15 @@ Content-Type: application/json
  "email":"anup@gmail.com",
  "password" : "anuppoudel"
 }
+
+
+// ************************* POST ************************* //
+
+###
+POST http://localhost:4000/api/v1/post/upload
+Content-Type: application/json
+
+{
+    "caption":"First post here, mate!!!!"
+
+}
