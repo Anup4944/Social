@@ -6,6 +6,7 @@ const {
   logout,
   updatePassword,
   updateProfile,
+  deleteUserProfile,
 } = require("../controllers/user");
 const { isAuth } = require("../middlewares/auth");
 
@@ -17,5 +18,6 @@ router.route("/logout").get(logout);
 router.route("/follow/:id").get(isAuth, followUser);
 router.route("/update/password").put(isAuth, updatePassword);
 router.route("/update/profile").put(isAuth, updateProfile);
+router.route("/delete/profile").delete(isAuth, deleteUserProfile);
 
 module.exports = router;

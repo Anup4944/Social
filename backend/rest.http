@@ -16,7 +16,7 @@ POST http://localhost:4000/api/v1/login
 Content-Type: application/json
 
 {
- "email":"anuppoudel@gmail.com",
+ "email":"apoudel@gmail.com",
  "password":"asutralia"
 }
 
@@ -43,6 +43,9 @@ Content-Type: application/json
     "email":"apoudel@gmail.com"
 }
 
+### DELETE
+DELETE http://localhost:4000/api/v1/delete/profile
+
 
 // ************************* POST ************************* //
 
@@ -51,7 +54,7 @@ POST http://localhost:4000/api/v1/post/upload
 Content-Type: application/json
 
 {
-"caption":"Third post here, mate!!!!"
+"caption":"First post here, mate!!!!"
 }
 
 ### LIKE AND DISLIKE POST
@@ -62,3 +65,11 @@ GET http://localhost:4000/api/v1/posts
 
 ### DELETE POST 
 DELETE http://localhost:4000/api/v1/post/627fa7d1f3d484cbd7e7816c
+
+### UPDATE POST CAPTION
+PUT http://localhost:4000/api/v1/post/627fbaf4cd060e8924a850e5
+Content-Type: application/json
+
+{
+    "caption":""
+}
