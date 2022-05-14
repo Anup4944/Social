@@ -1,0 +1,19 @@
+// ************************* USER ************************* //
+
+POST http://localhost:4000/api/v1/register
+Content-Type: application/json
+
+{
+    "name" : "Anup Poudel",
+    "email":"anuppoudel@gmail.com",
+    "password" : "anuppoudel"
+}
+
+###
+POST http://localhost:4000/api/v1/login
+Content-Type: application/json
+
+{
+ "email":"anup@gmail.com",
+ "password" : "anuppoudel"
+}
