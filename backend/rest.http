@@ -17,7 +17,7 @@ Content-Type: application/json
 
 {
  "email":"anuppoudel@gmail.com",
- "password":"anuppoudel"
+ "password":"asutralia"
 }
 
 ### LOGOUT USER
@@ -25,6 +25,23 @@ GET http://localhost:4000/api/v1/logout
 
 ### FOLLOW AND UNFOLLOW USER
 GET http://localhost:4000/api/v1/follow/627fbac6cd060e8924a850db
+
+### UPDATE PASSWORD USING OLD PASSWORD
+PUT http://localhost:4000/api/v1/update/password
+Content-Type: application/json
+
+{
+    "oldPassword":"anuppoudel",
+    "newPassword":"asutralia"
+}
+
+### UPDATE PROFILE
+PUT http://localhost:4000/api/v1/update/profile
+Content-Type: application/json
+
+{
+    "email":"apoudel@gmail.com"
+}
 
 
 // ************************* POST ************************* //
@@ -38,7 +55,7 @@ Content-Type: application/json
 }
 
 ### LIKE AND DISLIKE POST
-GET http://localhost:4000/api/v1/post/627f4348ded1dd6268f9ba9c
+GET http://localhost:4000/api/v1/post/627fa7d1f3d484cbd7e7816c
 
 ### GET POST OF FOLLOWING USERS
 GET http://localhost:4000/api/v1/posts
