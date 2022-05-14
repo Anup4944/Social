@@ -1,4 +1,3 @@
-const { findById } = require("../models/Post");
 const Post = require("../models/Post");
 const User = require("../models/User");
 
@@ -101,6 +100,33 @@ exports.likesAndUnlikePost = async (req, res) => {
         message: "Post Liked",
       });
     }
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+exports.getPostOfFollowing = async (req, res) => {
+  try {
+    // const user = await User.findById(req.user._id).populate(
+    //   "following",
+    //   "posts"
+    // );
+
+    const user = await User.findById(req.user._id);
+
+    const posts = await Post.find({
+      owner: {
+        $in: user.following,
+      },
+    });
+    res.status(200).json({
+      success: true,
+      posts,
+      // following: user.following,
+    });
   } catch (error) {
     res.status(500).json({
       success: false,

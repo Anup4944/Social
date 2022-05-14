@@ -1,40 +1,47 @@
 // ************************* USER ************************* //
 
+
+### REGISTER USER
 POST http://localhost:4000/api/v1/register
 Content-Type: application/json
 
 {
-    "name" : "Anu Poudel",
-    "email":"anuppoudel@gmail.com",
+    "name" : "James Poudel",
+    "email":"james@gmail.com",
     "password" : "anuppoudel"
 }
 
-###
+### LOGIN USER
 POST http://localhost:4000/api/v1/login
 Content-Type: application/json
 
 {
  "email":"anuppoudel@gmail.com",
- "password" : "anuppoudel"
+ "password":"anuppoudel"
 }
 
-###
-GET http://localhost:4000/api/v1/follow/627fa7e5f3d484cbd7e78171
+### LOGOUT USER
+GET http://localhost:4000/api/v1/logout
+
+### FOLLOW AND UNFOLLOW USER
+GET http://localhost:4000/api/v1/follow/627fbac6cd060e8924a850db
 
 
 // ************************* POST ************************* //
 
-###
+### CREATE POST
 POST http://localhost:4000/api/v1/post/upload
 Content-Type: application/json
 
 {
-    "caption":" Second post here, mate!!!!"
-
+"caption":"Third post here, mate!!!!"
 }
 
-###
+### LIKE AND DISLIKE POST
 GET http://localhost:4000/api/v1/post/627f4348ded1dd6268f9ba9c
 
-###
-DELETE http://localhost:4000/api/v1/post/627fa6a2a6bc1ef151a6d1bf
+### GET POST OF FOLLOWING USERS
+GET http://localhost:4000/api/v1/posts
+
+### DELETE POST 
+DELETE http://localhost:4000/api/v1/post/627fa7d1f3d484cbd7e7816c
