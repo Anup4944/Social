@@ -15,7 +15,7 @@ POST http://localhost:4000/api/v1/login
 Content-Type: application/json
 
 {
- "email":"jm@gmail.com",
+ "email":"ap@gmail.com",
  "password":"anuppoudel"
 }
 
@@ -98,3 +98,21 @@ Content-Type: application/json
 {
     "commentId":"6280863c87f24d879df267ae"
 }
+
+### FORGOT PASSWORD
+POST http://localhost:4000/api/v1/forgot/password
+Content-Type: application/json
+
+{
+"email":"ap@gmail.com"
+}
+
+### RESET PASSWORD
+PUT http://localhost:4000/api/v1/password/reset/bd887d28e238fde141305986f77475a9c023a2cc
+Content-Type: application/json
+
+{
+    "password":"queanbeyanNSW"
+}
+
+
