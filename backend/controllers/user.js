@@ -116,8 +116,6 @@ exports.followUser = async (req, res) => {
 
       const indexFollowers = userToFollow.followers.indexOf(loggedInUser._id);
 
-      console.log("index", indexFollowers);
-
       loggedInUser.following.splice(indexFollwing, 1);
 
       userToFollow.followers.splice(indexFollowers, 1);
@@ -217,6 +215,12 @@ exports.deleteUserProfile = async (req, res) => {
 
     const posts = user.posts;
 
+    const followers = user.followers;
+
+    const following = user.following;
+
+    const userId = user._id;
+
     await user.remove();
 
     // logout user after deleting
@@ -232,9 +236,87 @@ exports.deleteUserProfile = async (req, res) => {
       const post = await Post.findById(posts[i]);
       await post.remove();
     }
+
+    // remove user from followers following
+
+    for (let i = 0; i < followers.length; i++) {
+      const follower = await User.findById(followers[i]);
+
+      const index = follower.following.indexOf(userId);
+
+      follower.following.splice(index, 1);
+
+      await follower.save();
+    }
+
+    // remove user from followings followers
+
+    for (let i = 0; i < following.length; i++) {
+      const followers = await User.findById(following[i]);
+
+      const index = followers.followers.indexOf(userId);
+
+      followers.followers.splice(index, 1);
+
+      await followers.save();
+    }
+
     res.status(200).json({
       success: true,
       message: "Profile deleted",
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+exports.myProfile = async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id).populate("posts");
+    res.status(200).json({
+      success: true,
+      user,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+exports.getUserProfile = async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id).populate("posts");
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
+    }
+    res.status(200).json({
+      success: true,
+      user,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+exports.getAllUserProfile = async (req, res) => {
+  try {
+    const users = await User.find({});
+
+    res.status(200).json({
+      success: true,
+      users,
     });
   } catch (error) {
     res.status(500).json({

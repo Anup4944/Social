@@ -1,13 +1,12 @@
 // ************************* USER ************************* //
 
-
 ### REGISTER USER
 POST http://localhost:4000/api/v1/register
 Content-Type: application/json
 
 {
-    "name" : "James Poudel",
-    "email":"james@gmail.com",
+    "name" : "Anup Poudel",
+    "email":"ap@gmail.com",
     "password" : "anuppoudel"
 }
 
@@ -16,15 +15,15 @@ POST http://localhost:4000/api/v1/login
 Content-Type: application/json
 
 {
- "email":"apoudel@gmail.com",
- "password":"asutralia"
+ "email":"jm@gmail.com",
+ "password":"anuppoudel"
 }
 
 ### LOGOUT USER
 GET http://localhost:4000/api/v1/logout
 
 ### FOLLOW AND UNFOLLOW USER
-GET http://localhost:4000/api/v1/follow/627fbac6cd060e8924a850db
+GET http://localhost:4000/api/v1/follow/628076e02edb7794c580f0c6
 
 ### UPDATE PASSWORD USING OLD PASSWORD
 PUT http://localhost:4000/api/v1/update/password
@@ -45,6 +44,15 @@ Content-Type: application/json
 
 ### DELETE
 DELETE http://localhost:4000/api/v1/delete/profile
+
+### GET LOGGED IN USER PROFILE
+GET http://localhost:4000/api/v1/profile
+
+### GET OTHER USER PROFILE
+GET http://localhost:4000/api/v1/user/628076e02edb7794c580f0c6
+
+### GET ALL USER PROFILE
+GET http://localhost:4000/api/v1/users
 
 
 // ************************* POST ************************* //
