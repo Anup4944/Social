@@ -49,7 +49,7 @@ DELETE http://localhost:4000/api/v1/delete/profile
 GET http://localhost:4000/api/v1/profile
 
 ### GET OTHER USER PROFILE
-GET http://localhost:4000/api/v1/user/628076e02edb7794c580f0c6
+GET http://localhost:4000/api/v1/user/62807a9a8bb37b3b863b4dbb
 
 ### GET ALL USER PROFILE
 GET http://localhost:4000/api/v1/users
@@ -80,4 +80,21 @@ Content-Type: application/json
 
 {
     "caption":""
+}
+
+### ADD/UPDATE POST COMMENT
+PUT http://localhost:4000/api/v1/post/comment/628085b987f24d879df267a3
+Content-Type: application/json
+
+{
+    "comment":"okayyy"
+}
+
+
+### DELETE POST COMMENT BY OWNER AND OTHER USER
+DELETE http://localhost:4000/api/v1/post/comment/628085b987f24d879df267a3
+Content-Type: application/json
+
+{
+    "commentId":"6280863c87f24d879df267ae"
 }

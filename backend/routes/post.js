@@ -5,6 +5,8 @@ const {
   deletePost,
   getPostOfFollowing,
   updateCaption,
+  commentOnPost,
+  deleteComment,
 } = require("../controllers/post");
 const { isAuth } = require("../middlewares/auth");
 
@@ -18,5 +20,9 @@ router
   .delete(isAuth, deletePost);
 
 router.route("/posts").get(isAuth, getPostOfFollowing);
+router
+  .route("/post/comment/:id")
+  .put(isAuth, commentOnPost)
+  .delete(isAuth, deleteComment);
 
 module.exports = router;
