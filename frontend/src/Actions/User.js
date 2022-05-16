@@ -40,8 +40,6 @@ export const getFollowingPostAction = () => async (dispatch) => {
 
     const { data } = await axios.get("/api/v1/posts");
 
-    console.log(data);
-
     dispatch({ type: "postOfFollowingSuccess", payload: data.posts });
   } catch (error) {
     dispatch({
@@ -55,8 +53,6 @@ export const getAllUsersAction = () => async (dispatch) => {
     dispatch({ type: "allUsersRequest" });
 
     const { data } = await axios.get("/api/v1/users");
-
-    console.log(data);
 
     dispatch({ type: "allUsersSuccess", payload: data.users });
   } catch (error) {

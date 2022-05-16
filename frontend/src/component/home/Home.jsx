@@ -10,15 +10,34 @@ import { Typography } from "@mui/material";
 const Home = () => {
   const dispatch = useDispatch();
 
-  const { isLoading, posts } = useSelector((state) => state.postOfFollowing);
+  const { isLoading, posts, error } = useSelector(
+    (state) => state.postOfFollowing
+  );
   const { users, isLoading: usersLoading } = useSelector(
     (state) => state.allUsers
   );
+  const { error: likeError, message } = useSelector((state) => state.like);
 
   useEffect(() => {
     dispatch(getFollowingPostAction());
     dispatch(getAllUsersAction());
   }, [dispatch]);
+
+  useEffect(() => {
+    if (error) {
+      alert(error);
+      dispatch({ type: "clearErrors" });
+    }
+    if (likeError) {
+      alert(likeError);
+      dispatch({ type: "clearErrors" });
+    }
+
+    if (message) {
+      alert(message);
+      dispatch({ type: "clearMessage" });
+    }
+  }, [error, message, dispatch, likeError]);
   return isLoading === true || usersLoading === true ? (
     <Loader />
   ) : (

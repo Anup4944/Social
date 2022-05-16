@@ -18,6 +18,6 @@ export const likeReducer = createReducer(initialState, {
     state.error = null;
   },
   clearMessage: (state) => {
-    state.mesage = null;
+    state.message = null;
   },
 });
