@@ -23,7 +23,7 @@ Content-Type: application/json
 GET http://localhost:4000/api/v1/logout
 
 ### FOLLOW AND UNFOLLOW USER
-GET http://localhost:4000/api/v1/follow/628076e02edb7794c580f0c6
+GET http://localhost:4000/api/v1/follow/62807a9a8bb37b3b863b4dbb
 
 ### UPDATE PASSWORD USING OLD PASSWORD
 PUT http://localhost:4000/api/v1/update/password
@@ -54,6 +54,9 @@ GET http://localhost:4000/api/v1/user/62807a9a8bb37b3b863b4dbb
 ### GET ALL USER PROFILE
 GET http://localhost:4000/api/v1/users
 
+### GET LOGGED IN USER POSTS
+GET http://localhost:4000/api/v1/myPost
+
 
 // ************************* POST ************************* //
 
@@ -62,7 +65,7 @@ POST http://localhost:4000/api/v1/post/upload
 Content-Type: application/json
 
 {
-"caption":"It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+"caption":"Arsenal lost to newcastle and they are going to miss chamipns league spot."
 }
 
 ### LIKE AND DISLIKE POST
