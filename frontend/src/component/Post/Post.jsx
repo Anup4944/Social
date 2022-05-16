@@ -1,4 +1,4 @@
-import { Avatar, Button, Typography } from "@mui/material";
+import { Avatar, Button, Typography, Dialog } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import "./Post.css";
 import { Link } from "react-router-dom";
@@ -10,8 +10,10 @@ import {
   DeleteOutline,
 } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
-import { likePost } from "../../Actions/Posts";
+import { addCommentPostAction, likePost } from "../../Actions/Posts";
 import { getFollowingPostAction } from "../../Actions/User";
+import User from "../User/User";
+import CommentCard from "../commentCard/CommentCard";
 
 const Post = ({
   postId,
@@ -26,15 +28,34 @@ const Post = ({
   isAccount = false,
 }) => {
   const [liked, setLiked] = useState(false);
+  const [viewLike, setViewLike] = useState(false);
+  const [commentValue, setCommentValue] = useState("");
+  const [commentToogle, setCommentToogle] = useState(false);
 
   const dispatch = useDispatch();
 
   const { user } = useSelector((state) => state.user);
 
-  const handleOnClick = (e) => {
+  const handleOnClick = async () => {
     setLiked(!liked);
-    dispatch(likePost(postId));
-    dispatch(getFollowingPostAction());
+    await dispatch(likePost(postId));
+
+    if (isAccount) {
+      console.log("Find your post here");
+    } else {
+      dispatch(getFollowingPostAction());
+    }
+  };
+
+  const handleOnSubmit = async (e) => {
+    e.preventDefault();
+    await dispatch(addCommentPostAction(postId, commentValue));
+
+    if (isAccount) {
+      console.log("Find your post here");
+    } else {
+      dispatch(getFollowingPostAction());
+    }
   };
 
   useEffect(() => {
@@ -81,6 +102,8 @@ const Post = ({
       </div>
 
       <button
+        onClick={() => setViewLike(!viewLike)}
+        disabled={likes.length === 0 ? true : false}
         style={{
           border: "none",
           backgroundColor: "white",
@@ -97,7 +120,7 @@ const Post = ({
           {liked ? <Favorite style={{ color: "red" }} /> : <FavoriteBorder />}
         </Button>
         <Button>
-          <ChatBubbleOutline />
+          <ChatBubbleOutline onClick={() => setCommentToogle(!commentToogle)} />
         </Button>
 
         {isDelete ? (
@@ -106,6 +129,56 @@ const Post = ({
           </Button>
         ) : null}
       </div>
+      <Dialog open={viewLike} onClose={() => setViewLike(!viewLike)}>
+        <div className="DialogBox">
+          <Typography varient="h4"> Liked by</Typography>
+          {likes.map((item) => (
+            <User
+              key={item._id}
+              userId={item._id}
+              name={item.name}
+              avatar={item.avatar.url}
+            />
+          ))}
+        </div>
+      </Dialog>
+
+      <Dialog
+        open={commentToogle}
+        onClose={() => setCommentToogle(!commentToogle)}
+      >
+        <div className="DialogBox">
+          <Typography varient="h4"> Comments</Typography>
+          <form className="commentForm" onSubmit={handleOnSubmit}>
+            <input
+              type="text"
+              value={commentValue}
+              onChange={(e) => setCommentValue(e.target.value)}
+              placeholder="Comment here"
+              required
+            />
+            <Button type="submit" variant="contained">
+              Add
+            </Button>
+          </form>
+
+          {comments.length > 0 ? (
+            comments.map((item) => (
+              <CommentCard
+                userId={item.user._id}
+                name={item.user.name}
+                avatar={item.user.avatar.url}
+                comment={item.comment}
+                commentId={item._id}
+                postId={postId}
+                isAccount={isAccount}
+              />
+            ))
+          ) : (
+            <Typography>No comments yet</Typography>
+          )}
+        </div>
+      </Dialog>
     </div>
   );
 };
