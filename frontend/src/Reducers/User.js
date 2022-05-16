@@ -1,50 +1,50 @@
 import { createReducer } from "@reduxjs/toolkit";
 const initialState = {
   isAuth: false,
+  isLoading: false,
+  user: {},
 };
 
 export const userReducer = createReducer(initialState, {
-  reducer: {
-    loginRequest: (state) => {
-      state.isLoading = true;
-    },
-    loginSuccess: (state, action) => {
-      state.isLoading = false;
-      state.user = action.payload;
-      state.isAuth = true;
-    },
-    loginFailure: (state, action) => {
-      state.isLoading = false;
-      state.error = action.payload;
-      state.isAuth = false;
-    },
+  LoginRequest: (state) => {
+    state.isLoading = true;
+  },
+  LoginSuccess: (state, action) => {
+    state.isLoading = false;
+    state.isAuth = true;
+    state.user = action.payload;
+  },
+  LoginFailure: (state, action) => {
+    state.isLoading = false;
+    state.isAuth = false;
+    state.error = action.payload;
+  },
 
-    registerRequest: (state) => {
-      state.isLoading = true;
-    },
-    registerSuccess: (state, action) => {
-      state.isLoading = false;
-      state.user = action.payload;
-      state.isAuth = true;
-    },
-    registerFailure: (state, action) => {
-      state.isLoading = false;
-      state.error = action.payload;
-      state.isAuth = false;
-    },
+  RegisterRequest: (state) => {
+    state.isLoading = true;
+  },
+  RegisterSuccess: (state, action) => {
+    state.isLoading = false;
+    state.user = action.payload;
+    state.isAuth = true;
+  },
+  RegisterFailure: (state, action) => {
+    state.isLoading = false;
+    state.error = action.payload;
+    state.isAuth = false;
+  },
 
-    loadUserRequest: (state) => {
-      state.isLoading = true;
-    },
-    loadUserSuccess: (state, action) => {
-      state.isLoading = false;
-      state.user = action.payload;
-      state.isAuth = true;
-    },
-    loadUserFailure: (state, action) => {
-      state.isLoading = false;
-      state.error = action.payload;
-      state.isAuth = false;
-    },
+  LoadUserRequest: (state) => {
+    state.isLoading = true;
+  },
+  LoadUserSuccess: (state, action) => {
+    state.isLoading = false;
+    state.user = action.payload;
+    state.isAuth = true;
+  },
+  LoadUserFailure: (state, action) => {
+    state.isLoading = false;
+    state.error = action.payload;
+    state.isAuth = false;
   },
 });

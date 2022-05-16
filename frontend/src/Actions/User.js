@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const loginAction = (email, password) => async (dispatch) => {
   try {
-    dispatch({ type: "loginRequest" });
+    dispatch({ type: "LoginRequest" });
 
     const { data } = await axios.post(
       "/api/v1/login",
@@ -14,22 +14,24 @@ export const loginAction = (email, password) => async (dispatch) => {
       }
     );
 
-    dispatch({ type: "loginSuccess", payload: data.user });
+    console.log(data);
+
+    dispatch({ type: "LoginSuccess", payload: data.user });
   } catch (error) {
-    dispatch({ type: "loginFailure", payload: error });
+    dispatch({ type: "LoginFailure", payload: error });
   }
 };
 export const loadUserAction = () => async (dispatch) => {
   try {
-    dispatch({ type: "loadUserRequest" });
+    dispatch({ type: "LoadUserRequest" });
 
     const { data } = await axios.get("/api/v1/profile");
 
     dispatch({
-      type: "loadUserSuccess",
+      type: "LoadUserSuccess",
       payload: data.user,
     });
   } catch (error) {
-    dispatch({ type: "loadUserFailure", payload: error });
+    dispatch({ type: "LoadUserFailure", payload: error });
   }
 };

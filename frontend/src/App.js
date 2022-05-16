@@ -12,10 +12,8 @@ function App() {
 
   useEffect(() => {
     dispatch(loadUserAction());
-  }, []);
+  }, [dispatch]);
   const { isAuth } = useSelector((state) => state.user);
-
-  console.log(isAuth);
 
   return (
     <Router>
