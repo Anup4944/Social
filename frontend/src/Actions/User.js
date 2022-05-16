@@ -50,3 +50,19 @@ export const getFollowingPostAction = () => async (dispatch) => {
     });
   }
 };
+export const getAllUsersAction = () => async (dispatch) => {
+  try {
+    dispatch({ type: "allUsersRequest" });
+
+    const { data } = await axios.get("/api/v1/users");
+
+    console.log(data);
+
+    dispatch({ type: "allUsersSuccess", payload: data.users });
+  } catch (error) {
+    dispatch({
+      type: "allUsersFailure",
+      payload: error.response.data.message,
+    });
+  }
+};

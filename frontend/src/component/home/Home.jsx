@@ -3,40 +3,58 @@ import User from "../User/User";
 import "./Home.css";
 import Post from "../Post/Post";
 import { useDispatch, useSelector } from "react-redux";
-import { getFollowingPostAction } from "../../Actions/User";
+import { getFollowingPostAction, getAllUsersAction } from "../../Actions/User";
 import Loader from "../loader/Loader";
+import { Typography } from "@mui/material";
 
 const Home = () => {
   const dispatch = useDispatch();
 
-  const { isLoading, posts, error } = useSelector(
-    (state) => state.postOfFollowing
+  const { isLoading, posts } = useSelector((state) => state.postOfFollowing);
+  const { users, isLoading: usersLoading } = useSelector(
+    (state) => state.allUsers
   );
 
   useEffect(() => {
     dispatch(getFollowingPostAction());
+    dispatch(getAllUsersAction());
   }, [dispatch]);
-  return isLoading ? (
+  return isLoading === true || usersLoading === true ? (
     <Loader />
   ) : (
     <div className="home">
       <div className="homeleft">
-        <Post
-          postImages={`https://cdn.pixabay.com/photo/2015/10/07/12/17/post-976115_960_720.png`}
-          ownerName={"Mark Zukenburg"}
-          caption={"This is sample post"}
-          // isAccount={true}
-          // isDelete={true}
-        />
+        {posts && posts.length > 0 ? (
+          posts.map((item) => (
+            <Post
+              key={item._id}
+              postId={item._id}
+              caption={item.caption}
+              postImages={item.image.url}
+              likes={item.likes}
+              comments={item.comments}
+              ownerImages={item.owner.avatar.url}
+              ownerName={item.owner.name}
+              ownerId={item.owner._id}
+            />
+          ))
+        ) : (
+          <Typography variant="h6">Np post yet</Typography>
+        )}
       </div>
       <div className="homeright">
-        <User
-          userId={"user._id"}
-          name={"Mark Zukenburg"}
-          avatar={
-            "https://imageio.forbes.com/specials-images/imageserve/5c76b7d331358e35dd2773a9/0x0.jpg?format=jpg&crop=4401,4401,x0,y0,safe&height=416&width=416&fit=bounds"
-          }
-        />
+        {users && users.length > 0 ? (
+          users.map((item) => (
+            <User
+              key={item._id}
+              userId={item._id}
+              name={item.name}
+              avatar={item.avatar.url}
+            />
+          ))
+        ) : (
+          <Typography>No users</Typography>
+        )}
       </div>
     </div>
   );

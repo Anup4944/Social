@@ -1,10 +1,17 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { postOfFollowingReducer, userReducer } from "./Reducers/User";
+import { likeReducer } from "./Reducers/Post";
+import {
+  allUsersReducer,
+  postOfFollowingReducer,
+  userReducer,
+} from "./Reducers/User";
 
 const store = configureStore({
   reducer: {
     user: userReducer,
     postOfFollowing: postOfFollowingReducer,
+    allUsers: allUsersReducer,
+    like: likeReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
