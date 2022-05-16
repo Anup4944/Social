@@ -18,6 +18,11 @@ const postRoute = require("./routes/post");
 const userRoute = require("./routes/user");
 
 //using routes
+
+// app.use("/", (req, res) => {
+//   res.send("Backend API for Social App");
+// });
+
 app.use("/api/v1", postRoute);
 app.use("/api/v1", userRoute);
 
