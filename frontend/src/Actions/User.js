@@ -14,11 +14,9 @@ export const loginAction = (email, password) => async (dispatch) => {
       }
     );
 
-    console.log(data);
-
     dispatch({ type: "LoginSuccess", payload: data.user });
   } catch (error) {
-    dispatch({ type: "LoginFailure", payload: error });
+    dispatch({ type: "LoginFailure", payload: error.response.data.message });
   }
 };
 export const loadUserAction = () => async (dispatch) => {
@@ -32,6 +30,23 @@ export const loadUserAction = () => async (dispatch) => {
       payload: data.user,
     });
   } catch (error) {
-    dispatch({ type: "LoadUserFailure", payload: error });
+    dispatch({ type: "LoadUserFailure", payload: error.response.data.message });
+  }
+};
+
+export const getFollowingPostAction = () => async (dispatch) => {
+  try {
+    dispatch({ type: "postOfFollowingRequest" });
+
+    const { data } = await axios.get("/api/v1/posts");
+
+    console.log(data);
+
+    dispatch({ type: "postOfFollowingSuccess", payload: data.posts });
+  } catch (error) {
+    dispatch({
+      type: "postOfFolowingFailure",
+      payload: error.response.data.message,
+    });
   }
 };

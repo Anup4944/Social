@@ -1,34 +1,26 @@
-import React from "react";
+import React, { useEffect } from "react";
 import User from "../User/User";
 import "./Home.css";
 import Post from "../Post/Post";
+import { useDispatch, useSelector } from "react-redux";
+import { getFollowingPostAction } from "../../Actions/User";
+import Loader from "../loader/Loader";
 
 const Home = () => {
-  // const { user } = useSelector((state) => state.user);
-  return (
+  const dispatch = useDispatch();
+
+  const { isLoading, posts, error } = useSelector(
+    (state) => state.postOfFollowing
+  );
+
+  useEffect(() => {
+    dispatch(getFollowingPostAction());
+  }, [dispatch]);
+  return isLoading ? (
+    <Loader />
+  ) : (
     <div className="home">
       <div className="homeleft">
-        <Post
-          postImages={`https://cdn.pixabay.com/photo/2015/10/07/12/17/post-976115_960_720.png`}
-          ownerName={"Mark Zukenburg"}
-          caption={"This is sample post"}
-          // isAccount={true}
-          // isDelete={true}
-        />
-        <Post
-          postImages={`https://cdn.pixabay.com/photo/2015/10/07/12/17/post-976115_960_720.png`}
-          ownerName={"Mark Zukenburg"}
-          caption={"This is sample post"}
-          // isAccount={true}
-          // isDelete={true}
-        />
-        <Post
-          postImages={`https://cdn.pixabay.com/photo/2015/10/07/12/17/post-976115_960_720.png`}
-          ownerName={"Mark Zukenburg"}
-          caption={"This is sample post"}
-          // isAccount={true}
-          // isDelete={true}
-        />
         <Post
           postImages={`https://cdn.pixabay.com/photo/2015/10/07/12/17/post-976115_960_720.png`}
           ownerName={"Mark Zukenburg"}
