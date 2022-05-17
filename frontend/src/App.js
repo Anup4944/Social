@@ -8,6 +8,7 @@ import { loadUserAction } from "./Actions/User";
 import Home from "./component/home/Home";
 import Account from "./component/Account/Account";
 import NewPost from "./component/newPost/NewPost";
+import Register from "./component/Register/Register";
 
 function App() {
   const dispatch = useDispatch();
@@ -25,6 +26,7 @@ function App() {
         <Route path="/" element={isAuth ? <Home /> : <Login />} />
         <Route path="/account" element={isAuth ? <Account /> : <Login />} />
         <Route path="/newpost" element={isAuth ? <NewPost /> : <Login />} />
+        <Route path="/register" element={isAuth ? <Account /> : <Register />} />
       </Routes>
     </Router>
   );
