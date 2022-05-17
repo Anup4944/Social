@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Login.css";
 import { Typography, Button } from "@mui/material";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { loginAction } from "../../Actions/User";
 
 const Login = () => {
@@ -11,10 +11,19 @@ const Login = () => {
 
   const dispatch = useDispatch();
 
+  const { error } = useSelector((state) => state.user);
+
   const handleOnSubmit = (e) => {
     e.preventDefault();
     dispatch(loginAction(email, password));
   };
+
+  useEffect(() => {
+    if (error) {
+      alert(error);
+      dispatch({ type: "clearErrors" });
+    }
+  }, [error, dispatch]);
   return (
     <div className="login">
       <form className="loginForm" onSubmit={handleOnSubmit}>

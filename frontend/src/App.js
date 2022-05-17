@@ -10,6 +10,7 @@ import Account from "./component/Account/Account";
 import NewPost from "./component/newPost/NewPost";
 import Register from "./component/Register/Register";
 import UpdateProfile from "./component/UpdateProfile/UpdateProfile";
+import UpdatePassword from "./component/UpdatePassword/UpdatePassword";
 
 function App() {
   const dispatch = useDispatch();
@@ -31,6 +32,10 @@ function App() {
         <Route
           path="/update/profile"
           element={isAuth ? <UpdateProfile /> : <Login />}
+        />
+        <Route
+          path="/update/password"
+          element={isAuth ? <UpdatePassword /> : <Login />}
         />
       </Routes>
     </Router>
