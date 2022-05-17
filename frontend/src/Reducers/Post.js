@@ -69,6 +69,18 @@ export const likeReducer = createReducer(initialState, {
     state.isLoading = false;
     state.error = action.payload;
   },
+
+  updateProfileRequest: (state) => {
+    state.isLoading = true;
+  },
+  updateProfileSuccess: (state, action) => {
+    state.isLoading = false;
+    state.message = action.payload;
+  },
+  updateProfileFailure: (state, action) => {
+    state.isLoading = false;
+    state.error = action.payload;
+  },
   clearErrors: (state) => {
     state.error = null;
   },

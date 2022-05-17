@@ -9,6 +9,7 @@ import Home from "./component/home/Home";
 import Account from "./component/Account/Account";
 import NewPost from "./component/newPost/NewPost";
 import Register from "./component/Register/Register";
+import UpdateProfile from "./component/UpdateProfile/UpdateProfile";
 
 function App() {
   const dispatch = useDispatch();
@@ -27,6 +28,10 @@ function App() {
         <Route path="/account" element={isAuth ? <Account /> : <Login />} />
         <Route path="/newpost" element={isAuth ? <NewPost /> : <Login />} />
         <Route path="/register" element={isAuth ? <Account /> : <Register />} />
+        <Route
+          path="/update/profile"
+          element={isAuth ? <UpdateProfile /> : <Login />}
+        />
       </Routes>
     </Router>
   );
