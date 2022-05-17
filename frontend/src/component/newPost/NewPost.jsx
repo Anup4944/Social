@@ -3,6 +3,7 @@ import "./newPost.css";
 import { Button, Typography } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import { createNewPostAction } from "../../Actions/Posts";
+import { loadUserAction } from "../../Actions/User";
 
 const NewPost = () => {
   const [image, setImage] = useState(null);
@@ -25,10 +26,11 @@ const NewPost = () => {
     };
   };
 
-  const handleOnSubmit = (e) => {
+  const handleOnSubmit = async (e) => {
     e.preventDefault();
 
-    dispatch(createNewPostAction(caption, image));
+    await dispatch(createNewPostAction(caption, image));
+    dispatch(loadUserAction());
   };
 
   useEffect(() => {

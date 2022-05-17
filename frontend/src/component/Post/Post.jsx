@@ -10,8 +10,17 @@ import {
   DeleteOutline,
 } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
-import { addCommentPostAction, likePost } from "../../Actions/Posts";
-import { getFollowingPostAction, getMyPostAction } from "../../Actions/User";
+import {
+  addCommentPostAction,
+  deletePostAction,
+  likePost,
+  updatePostAction,
+} from "../../Actions/Posts";
+import {
+  getFollowingPostAction,
+  getMyPostAction,
+  loadUserAction,
+} from "../../Actions/User";
 import User from "../User/User";
 import CommentCard from "../commentCard/CommentCard";
 
@@ -29,8 +38,12 @@ const Post = ({
 }) => {
   const [liked, setLiked] = useState(false);
   const [viewLike, setViewLike] = useState(false);
+
   const [commentValue, setCommentValue] = useState("");
   const [commentToogle, setCommentToogle] = useState(false);
+
+  const [updateToogle, setUpdateToogle] = useState(false);
+  const [captionValue, setCaptionValue] = useState(caption);
 
   const dispatch = useDispatch();
 
@@ -58,6 +71,18 @@ const Post = ({
     }
   };
 
+  const handleOnUpdate = (e) => {
+    e.preventDefault();
+    dispatch(updatePostAction(captionValue, postId));
+    dispatch(getMyPostAction());
+  };
+
+  const deletePost = async () => {
+    await dispatch(deletePostAction(postId));
+    dispatch(getMyPostAction());
+    dispatch(loadUserAction());
+  };
+
   useEffect(() => {
     likes.forEach((item) => {
       if (item._id === user._id) {
@@ -70,7 +95,7 @@ const Post = ({
     <div className="post">
       <div className="postHeader">
         {isAccount ? (
-          <Button>
+          <Button onClick={() => setUpdateToogle(!updateToogle)}>
             <MoreVert />
           </Button>
         ) : null}
@@ -124,7 +149,7 @@ const Post = ({
         </Button>
 
         {isDelete ? (
-          <Button>
+          <Button onClick={deletePost}>
             <DeleteOutline />
           </Button>
         ) : null}
@@ -178,6 +203,27 @@ const Post = ({
           ) : (
             <Typography>No comments yet</Typography>
           )}
+        </div>
+      </Dialog>
+
+      <Dialog
+        open={updateToogle}
+        onClose={() => setUpdateToogle(!updateToogle)}
+      >
+        <div className="DialogBox">
+          <Typography varient="h4"> Update caption</Typography>
+          <form className="commentForm" onSubmit={handleOnUpdate}>
+            <input
+              type="text"
+              value={captionValue}
+              onChange={(e) => setCaptionValue(e.target.value)}
+              placeholder="Caption here"
+              required
+            />
+            <Button type="submit" variant="contained">
+              Update
+            </Button>
+          </form>
         </div>
       </Dialog>
     </div>

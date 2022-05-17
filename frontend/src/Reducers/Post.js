@@ -47,6 +47,28 @@ export const likeReducer = createReducer(initialState, {
     state.isLoading = false;
     state.error = action.payload;
   },
+  updateCaptionRequest: (state) => {
+    state.isLoading = true;
+  },
+  updateCaptionSuccess: (state, action) => {
+    state.isLoading = false;
+    state.message = action.payload;
+  },
+  updateCaptionFailure: (state, action) => {
+    state.isLoading = false;
+    state.error = action.payload;
+  },
+  deletePostRequest: (state) => {
+    state.isLoading = true;
+  },
+  deletePostSuccess: (state, action) => {
+    state.isLoading = false;
+    state.message = action.payload;
+  },
+  deletePostFailure: (state, action) => {
+    state.isLoading = false;
+    state.error = action.payload;
+  },
   clearErrors: (state) => {
     state.error = null;
   },

@@ -42,6 +42,10 @@ const Login = () => {
           <Typography variant="h6">Forget Password </Typography>
         </Link>
         <Button type="submit">Login</Button>
+
+        <Link to="/register">
+          <Typography variant="h6">Register </Typography>
+        </Link>
       </form>
     </div>
   );
