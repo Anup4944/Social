@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getMyPostAction, logoutUserAction } from "../../Actions/User";
+import {
+  deleteProfileAction,
+  getMyPostAction,
+  logoutUserAction,
+} from "../../Actions/User";
 import Loader from "../../component/loader/Loader";
 import Post from "../Post/Post";
 import { Avatar, Button, Typography, Dialog } from "@mui/material";
@@ -15,7 +19,11 @@ const Account = () => {
 
   const [followingTogg, setFollowingTogg] = useState(false);
 
-  const { error: likeError, message } = useSelector((state) => state.like);
+  const {
+    error: likeError,
+    message,
+    isLoading: deleteLoading,
+  } = useSelector((state) => state.like);
 
   const { isLoading, error, posts } = useSelector((state) => state.myPosts);
 
@@ -26,6 +34,10 @@ const Account = () => {
     alert("Logged out successfully");
   };
 
+  const deleteProfile = async () => {
+    await dispatch(deleteProfileAction());
+    dispatch(logoutUserAction());
+  };
   useEffect(() => {
     dispatch(getMyPostAction());
   }, [dispatch]);
@@ -108,7 +120,12 @@ const Account = () => {
         <Link to="/update/profile">Edit Profile</Link>
         <Link to="/update/password">Change password</Link>
 
-        <Button variant="text" style={{ color: "red", margin: "2vmax" }}>
+        <Button
+          variant="text"
+          style={{ color: "red", margin: "2vmax" }}
+          onClick={deleteProfile}
+          disabled={deleteLoading}
+        >
           Delete profile
         </Button>
 

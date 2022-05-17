@@ -92,6 +92,17 @@ export const likeReducer = createReducer(initialState, {
     state.isLoading = false;
     state.error = action.payload;
   },
+  deleteProfileRequest: (state) => {
+    state.isLoading = true;
+  },
+  deleteProfileSuccess: (state, action) => {
+    state.isLoading = false;
+    state.message = action.payload;
+  },
+  deleteProfileFailure: (state, action) => {
+    state.isLoading = false;
+    state.error = action.payload;
+  },
   clearErrors: (state) => {
     state.error = null;
   },

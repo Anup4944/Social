@@ -12,6 +12,7 @@ const Login = () => {
   const dispatch = useDispatch();
 
   const { error } = useSelector((state) => state.user);
+  const { message } = useSelector((state) => state.like);
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
@@ -23,7 +24,11 @@ const Login = () => {
       alert(error);
       dispatch({ type: "clearErrors" });
     }
-  }, [error, dispatch]);
+    if (message) {
+      alert(message);
+      dispatch({ type: "clearErrors" });
+    }
+  }, [error, dispatch, message]);
   return (
     <div className="login">
       <form className="loginForm" onSubmit={handleOnSubmit}>

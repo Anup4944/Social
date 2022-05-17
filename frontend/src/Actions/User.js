@@ -163,3 +163,17 @@ export const updatePasswordAction =
       });
     }
   };
+export const deleteProfileAction = () => async (dispatch) => {
+  try {
+    dispatch({ type: "deleteProfileRequest" });
+
+    const { data } = await axios.delete("/api/v1/delete/profile");
+
+    dispatch({ type: "deleteProfileSuccess", payload: data.message });
+  } catch (error) {
+    dispatch({
+      type: "deleteProfileFailure",
+      payload: error.response.data.message,
+    });
+  }
+};
