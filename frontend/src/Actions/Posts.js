@@ -50,3 +50,31 @@ export const deleteCommentPostAction = (id, commentId) => async (dispatch) => {
     });
   }
 };
+
+export const createNewPostAction = (caption, image) => async (dispatch) => {
+  try {
+    dispatch({ type: "newPostRequest" });
+
+    const { data } = await axios.post(
+      `/api/v1/post/upload`,
+      {
+        caption,
+        image,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    console.log("from POST ACTION", data);
+
+    dispatch({ type: "newPostSuccess", payload: data.message });
+  } catch (error) {
+    dispatch({
+      type: "newPostFailure",
+      payload: error.response.data.message,
+    });
+  }
+};
