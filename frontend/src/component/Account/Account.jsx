@@ -59,9 +59,11 @@ const Account = () => {
               postImages={post.image.url}
               likes={post.likes}
               comments={post.comments}
-              // ownerImages={post.owner.avatar.url}
+              ownerImages={post.owner.avatar.url}
               ownerName={post.owner.name}
               ownerId={post.owner._id}
+              isAccount={true}
+              isDelete={true}
             />
           ))
         ) : (

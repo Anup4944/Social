@@ -11,7 +11,7 @@ import {
 } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
 import { addCommentPostAction, likePost } from "../../Actions/Posts";
-import { getFollowingPostAction } from "../../Actions/User";
+import { getFollowingPostAction, getMyPostAction } from "../../Actions/User";
 import User from "../User/User";
 import CommentCard from "../commentCard/CommentCard";
 
@@ -41,7 +41,7 @@ const Post = ({
     await dispatch(likePost(postId));
 
     if (isAccount) {
-      console.log("Find your post here");
+      dispatch(getMyPostAction());
     } else {
       dispatch(getFollowingPostAction());
     }
@@ -52,7 +52,7 @@ const Post = ({
     await dispatch(addCommentPostAction(postId, commentValue));
 
     if (isAccount) {
-      console.log("Find your post here");
+      dispatch(getMyPostAction());
     } else {
       dispatch(getFollowingPostAction());
     }
