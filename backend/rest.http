@@ -5,8 +5,8 @@ POST http://localhost:4000/api/v1/register
 Content-Type: application/json
 
 {
-    "name" : "Anup Poudel",
-    "email":"ap@gmail.com",
+    "name" : "Danny Welbeck",
+    "email":"dw@gmail.com",
     "password" : "anuppoudel"
 }
 
@@ -15,7 +15,7 @@ POST http://localhost:4000/api/v1/login
 Content-Type: application/json
 
 {
- "email":"jm@gmail.com",
+ "email":"dw@gmail.com",
  "password":"anuppoudel"
 }
 
@@ -23,7 +23,7 @@ Content-Type: application/json
 GET http://localhost:4000/api/v1/logout
 
 ### FOLLOW AND UNFOLLOW USER
-GET http://localhost:4000/api/v1/follow/62807a9a8bb37b3b863b4dbb
+GET http://localhost:4000/api/v1/follow/628076e02edb7794c580f0c6
 
 ### UPDATE PASSWORD USING OLD PASSWORD
 PUT http://localhost:4000/api/v1/update/password

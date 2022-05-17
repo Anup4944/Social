@@ -1,18 +1,30 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getMyPostAction } from "../../Actions/User";
+import { getMyPostAction, logoutUserAction } from "../../Actions/User";
 import Loader from "../../component/loader/Loader";
 import Post from "../Post/Post";
-import { Avatar, Button, Typography } from "@mui/material";
+import { Avatar, Button, Typography, Dialog } from "@mui/material";
 import "./Account.css";
 import { Link } from "react-router-dom";
+import User from "../User/User";
 
 const Account = () => {
   const dispatch = useDispatch();
+
+  const [followersTogg, setFollowersTogg] = useState(false);
+
+  const [followingTogg, setFollowingTogg] = useState(false);
+
   const { error: likeError, message } = useSelector((state) => state.like);
 
   const { isLoading, error, posts } = useSelector((state) => state.myPosts);
+
   const { user, isLoading: userLoading } = useSelector((state) => state.user);
+
+  const handleOnLogout = async () => {
+    await dispatch(logoutUserAction());
+    alert("Logged out successfully");
+  };
 
   useEffect(() => {
     dispatch(getMyPostAction());
@@ -64,14 +76,14 @@ const Account = () => {
 
         <Typography variant="h5">{user.name}</Typography>
         <div>
-          <button>
+          <button onClick={() => setFollowersTogg(!followersTogg)}>
             <Typography>Followers</Typography>
           </button>
 
           <Typography>{user.followers.length}</Typography>
         </div>
         <div>
-          <button>
+          <button onClick={() => setFollowingTogg(!followingTogg)}>
             <Typography>Following</Typography>
           </button>
 
@@ -83,7 +95,11 @@ const Account = () => {
           <Typography>{user.posts.length}</Typography>
         </div>
 
-        <Button variant="contained" style={{ cursor: "pointer" }}>
+        <Button
+          variant="contained"
+          style={{ cursor: "pointer" }}
+          onClick={handleOnLogout}
+        >
           Logout
         </Button>
 
@@ -93,6 +109,54 @@ const Account = () => {
         <Button variant="text" style={{ color: "red", margin: "2vmax" }}>
           Delete profile
         </Button>
+
+        <Dialog
+          open={followersTogg}
+          onClose={() => setFollowersTogg(!followersTogg)}
+        >
+          <div className="DialogBox">
+            <Typography variant="h4">Followers</Typography>
+
+            {user && user.followers.length > 0 ? (
+              user.followers.map((item) => (
+                <User
+                  key={item._id}
+                  userId={item._id}
+                  name={item.name}
+                  avatar={item.avatar.url}
+                />
+              ))
+            ) : (
+              <Typography style={{ margin: "2vmax" }}>
+                You have no followers
+              </Typography>
+            )}
+          </div>
+        </Dialog>
+
+        <Dialog
+          open={followingTogg}
+          onClose={() => setFollowingTogg(!followingTogg)}
+        >
+          <div className="DialogBox">
+            <Typography variant="h4">Following</Typography>
+
+            {user && user.following.length > 0 ? (
+              user.followers.map((item) => (
+                <User
+                  key={item._id}
+                  userId={item._id}
+                  name={item.name}
+                  avatar={item.avatar.url}
+                />
+              ))
+            ) : (
+              <Typography style={{ margin: "2vmax" }}>
+                You have no followers
+              </Typography>
+            )}
+          </div>
+        </Dialog>
       </div>
     </div>
   );

@@ -77,3 +77,17 @@ export const getMyPostAction = () => async (dispatch) => {
     });
   }
 };
+export const logoutUserAction = () => async (dispatch) => {
+  try {
+    dispatch({ type: "logoutUserRequest" });
+
+    await axios.get("/api/v1/logout");
+
+    dispatch({ type: "logoutUserSuccess" });
+  } catch (error) {
+    dispatch({
+      type: "logoutUserFailure",
+      payload: error.response.data.message,
+    });
+  }
+};
