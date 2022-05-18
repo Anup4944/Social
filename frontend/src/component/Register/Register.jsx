@@ -44,7 +44,7 @@ const Register = () => {
           variant="h4"
           style={{ padding: "2vmax", textAlign: "center" }}
         >
-          Register your account
+          Register your account today and experience the best social network!
         </Typography>
 
         <Avatar

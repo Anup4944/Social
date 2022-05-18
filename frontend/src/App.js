@@ -11,6 +11,8 @@ import NewPost from "./component/newPost/NewPost";
 import Register from "./component/Register/Register";
 import UpdateProfile from "./component/UpdateProfile/UpdateProfile";
 import UpdatePassword from "./component/UpdatePassword/UpdatePassword";
+import ForgetPassword from "./component/ForgetPassword/ForgetPassword";
+import ResetPassword from "./component/ResetPassword/ResetPassword";
 
 function App() {
   const dispatch = useDispatch();
@@ -36,6 +38,14 @@ function App() {
         <Route
           path="/update/password"
           element={isAuth ? <UpdatePassword /> : <Login />}
+        />
+        <Route
+          path="/forget/password"
+          element={isAuth ? <UpdatePassword /> : <ForgetPassword />}
+        />
+        <Route
+          path="/password/reset/:token"
+          element={isAuth ? <UpdatePassword /> : <ResetPassword />}
         />
       </Routes>
     </Router>

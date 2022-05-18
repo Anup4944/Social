@@ -36,7 +36,7 @@ const Login = () => {
           variant="h4"
           style={{ padding: "2vmax", textAlign: "center" }}
         >
-          Welcome to my Social App!
+          G'day! Welcome to my Social App!
         </Typography>
         <input
           type="email"
