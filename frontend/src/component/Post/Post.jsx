@@ -123,7 +123,7 @@ const Post = ({
         </Link>
 
         <Typography
-          fontWeight={100}
+          fontWeight={500}
           color="rgba(0,0,0,0.582)"
           style={{ alignSelf: "center" }}
         >

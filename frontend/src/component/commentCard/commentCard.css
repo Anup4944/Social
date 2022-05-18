@@ -9,7 +9,7 @@
   text-decoration: none;
   color: rgb(0, 0, 0);
   align-items: center;
-  align-self: flex-start;
+  justify-content: space-around;
   transition: all 0.5s;
 }
 .commentUser img {

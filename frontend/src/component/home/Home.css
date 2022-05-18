@@ -7,8 +7,8 @@
 
 .homeleft {
   background-image: linear-gradient(to right, #fff5bc, #cec1ff);
-
   overflow-y: auto;
+  scroll-behavior: smooth;
   display: flex;
   flex-direction: column;
   align-items: center;

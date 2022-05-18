@@ -58,12 +58,21 @@ const Home = () => {
             />
           ))
         ) : (
-          <Typography variant="h6">
+          <Typography>
             Please follow other users to view their posts.{" "}
           </Typography>
         )}
       </div>
       <div className="homeright">
+        <Typography
+          variant="h6"
+          fontWeight={500}
+          color="rgba(0,0,0,0.582)"
+          style={{ textAlign: "center" }}
+        >
+          Follow users
+        </Typography>
+
         {users && users.length > 0 ? (
           users.map((item) => (
             <User
@@ -74,7 +83,7 @@ const Home = () => {
             />
           ))
         ) : (
-          <Typography>No users</Typography>
+          <Typography variant="h6">No users</Typography>
         )}
       </div>
     </div>

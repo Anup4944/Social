@@ -34,7 +34,7 @@ const CommentCard = ({
     <div className="commentUser">
       <Link to={`/user/${userId}`}>
         <img src={avatar} alt={name} />
-        <Typography style={{ minWidth: "6vmax" }}>{name}</Typography>
+        <Typography style={{ minWidth: "10vmax" }}>{name}</Typography>
       </Link>
 
       <Typography>{comment}</Typography>
