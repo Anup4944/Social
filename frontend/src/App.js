@@ -14,6 +14,7 @@ import UpdatePassword from "./component/UpdatePassword/UpdatePassword";
 import ForgetPassword from "./component/ForgetPassword/ForgetPassword";
 import ResetPassword from "./component/ResetPassword/ResetPassword";
 import UserProfile from "./component/UserProfile/UserProfile";
+import Search from "./component/Search/Search";
 
 function App() {
   const dispatch = useDispatch();
@@ -52,6 +53,7 @@ function App() {
           path="/user/:id"
           element={isAuth ? <UserProfile /> : <Login />}
         />
+        <Route path="/search" element={isAuth ? <Search /> : <Login />} />
       </Routes>
     </Router>
   );

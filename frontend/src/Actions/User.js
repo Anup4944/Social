@@ -48,20 +48,22 @@ export const getFollowingPostAction = () => async (dispatch) => {
     });
   }
 };
-export const getAllUsersAction = () => async (dispatch) => {
-  try {
-    dispatch({ type: "allUsersRequest" });
+export const getAllUsersAction =
+  (name = "") =>
+  async (dispatch) => {
+    try {
+      dispatch({ type: "allUsersRequest" });
 
-    const { data } = await axios.get("/api/v1/users");
+      const { data } = await axios.get(`/api/v1/users?name=${name}`);
 
-    dispatch({ type: "allUsersSuccess", payload: data.users });
-  } catch (error) {
-    dispatch({
-      type: "allUsersFailure",
-      payload: error.response.data.message,
-    });
-  }
-};
+      dispatch({ type: "allUsersSuccess", payload: data.users });
+    } catch (error) {
+      dispatch({
+        type: "allUsersFailure",
+        payload: error.response.data.message,
+      });
+    }
+  };
 
 export const logoutUserAction = () => async (dispatch) => {
   try {

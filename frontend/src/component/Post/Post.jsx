@@ -35,6 +35,7 @@ const Post = ({
   ownerName,
   isDelete = false,
   isAccount = false,
+  isHomePage = "home",
 }) => {
   const [liked, setLiked] = useState(false);
   const [viewLike, setViewLike] = useState(false);
@@ -89,6 +90,10 @@ const Post = ({
         setLiked(true);
       }
     });
+
+    // if (homePage === true) {
+    //   dispatch(getUserPostAction());
+    // }
   }, [likes, user._id]);
 
   return (

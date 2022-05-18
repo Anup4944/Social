@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   deleteProfileAction,
   getMyPostAction,
+  loadUserAction,
   logoutUserAction,
 } from "../../Actions/User";
 import Loader from "../../component/loader/Loader";
@@ -40,6 +41,7 @@ const Account = () => {
   };
   useEffect(() => {
     dispatch(getMyPostAction());
+    dispatch(loadUserAction());
   }, [dispatch]);
 
   useEffect(() => {
@@ -161,7 +163,7 @@ const Account = () => {
             <Typography variant="h4">Following</Typography>
 
             {user && user.following.length > 0 ? (
-              user.followers.map((item) => (
+              user.following.map((item) => (
                 <User
                   key={item._id}
                   userId={item._id}
