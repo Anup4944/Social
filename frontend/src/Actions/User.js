@@ -63,48 +63,6 @@ export const getAllUsersAction = () => async (dispatch) => {
   }
 };
 
-export const getMyPostAction = () => async (dispatch) => {
-  try {
-    dispatch({ type: "myPostsRequest" });
-
-    const { data } = await axios.get("/api/v1/myPost");
-
-    dispatch({ type: "myPostsSuccess", payload: data.posts });
-  } catch (error) {
-    dispatch({
-      type: "myPostsFailure",
-      payload: error.response.data.message,
-    });
-  }
-};
-export const getUserPostAction = (id) => async (dispatch) => {
-  try {
-    dispatch({ type: "userPostsRequest" });
-
-    const { data } = await axios.get(`/api/v1/usersposts/${id}`);
-
-    dispatch({ type: "userPostsSuccess", payload: data.posts });
-  } catch (error) {
-    dispatch({
-      type: "userPostsFailure",
-      payload: error.response.data.message,
-    });
-  }
-};
-export const getUserProfileAction = (id) => async (dispatch) => {
-  try {
-    dispatch({ type: "userProfileRequest" });
-
-    const { data } = await axios.get(`/api/v1/user/${id}`);
-
-    dispatch({ type: "userProfileSuccess", payload: data.user });
-  } catch (error) {
-    dispatch({
-      type: "userProfileFailure",
-      payload: error.response.data.message,
-    });
-  }
-};
 export const logoutUserAction = () => async (dispatch) => {
   try {
     dispatch({ type: "logoutUserRequest" });
@@ -246,6 +204,64 @@ export const resetPasswordAction = (token, password) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: "resetPasswordFailure",
+      payload: error.response.data.message,
+    });
+  }
+};
+
+export const getMyPostAction = () => async (dispatch) => {
+  try {
+    dispatch({ type: "myPostsRequest" });
+
+    const { data } = await axios.get("/api/v1/myPost");
+
+    dispatch({ type: "myPostsSuccess", payload: data.posts });
+  } catch (error) {
+    dispatch({
+      type: "myPostsFailure",
+      payload: error.response.data.message,
+    });
+  }
+};
+export const getUserPostAction = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: "userPostsRequest" });
+
+    const { data } = await axios.get(`/api/v1/usersposts/${id}`);
+
+    dispatch({ type: "userPostsSuccess", payload: data.posts });
+  } catch (error) {
+    dispatch({
+      type: "userPostsFailure",
+      payload: error.response.data.message,
+    });
+  }
+};
+export const getUserProfileAction = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: "userProfileRequest" });
+
+    const { data } = await axios.get(`/api/v1/user/${id}`);
+
+    dispatch({ type: "userProfileSuccess", payload: data.user });
+  } catch (error) {
+    dispatch({
+      type: "userProfileFailure",
+      payload: error.response.data.message,
+    });
+  }
+};
+
+export const followAndUnfollowAction = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: "followUserRequest" });
+
+    const { data } = await axios.get(`/api/v1/follow/${id}`);
+
+    dispatch({ type: "followUserSuccess", payload: data.message });
+  } catch (error) {
+    dispatch({
+      type: "followUserFailure",
       payload: error.response.data.message,
     });
   }

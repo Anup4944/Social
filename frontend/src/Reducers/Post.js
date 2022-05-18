@@ -114,6 +114,17 @@ export const likeReducer = createReducer(initialState, {
     state.isLoading = false;
     state.error = action.payload;
   },
+  followUserRequest: (state) => {
+    state.isLoading = true;
+  },
+  followUserSuccess: (state, action) => {
+    state.isLoading = false;
+    state.message = action.payload;
+  },
+  followUserFailure: (state, action) => {
+    state.isLoading = false;
+    state.error = action.payload;
+  },
   resetPasswordRequest: (state) => {
     state.isLoading = true;
   },

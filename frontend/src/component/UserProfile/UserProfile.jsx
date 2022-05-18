@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserPostAction, getUserProfileAction } from "../../Actions/User";
+import {
+  followAndUnfollowAction,
+  getUserPostAction,
+  getUserProfileAction,
+} from "../../Actions/User";
 import Loader from "../../component/loader/Loader";
 import Post from "../Post/Post";
 import { Avatar, Button, Typography, Dialog } from "@mui/material";
@@ -19,36 +23,59 @@ const UserProfile = () => {
 
   const { id } = useParams();
 
-  const { error: likeError, message } = useSelector((state) => state.like);
+  const {
+    error: followError,
+    message,
+    isLoading: followLoading,
+  } = useSelector((state) => state.like);
 
   const { isLoading, error, posts } = useSelector((state) => state.userPosts);
 
-  const { user, isLoading: userLoading } = useSelector(
-    (state) => state.userProfile
-  );
+  const {
+    user,
+    isLoading: userLoading,
+    error: userProfError,
+  } = useSelector((state) => state.userProfile);
 
   const { user: myself } = useSelector((state) => state.user);
 
-  const handleOnFollow = () => {
+  const handleOnFollow = async () => {
     setFollowing(!following);
+    await dispatch(followAndUnfollowAction(id));
+    dispatch(getUserProfileAction(id));
   };
 
   useEffect(() => {
     dispatch(getUserPostAction(id));
     dispatch(getUserProfileAction(id));
+  }, [dispatch, id]);
 
+  useEffect(() => {
     if (myself._id === id) {
       setMyProfile(true);
     }
-  }, [dispatch, id, myself._id]);
+    if (user) {
+      user.followers.forEach((item) => {
+        if (item._id === myself._id) {
+          setFollowing(true);
+        } else {
+          setFollowing(false);
+        }
+      });
+    }
+  }, [user, id, myself._id]);
 
   useEffect(() => {
     if (error) {
       alert(error);
       dispatch({ type: "clearErrors" });
     }
-    if (likeError) {
-      alert(likeError);
+    if (followError) {
+      alert(followError);
+      dispatch({ type: "clearErrors" });
+    }
+    if (userProfError) {
+      alert(userProfError);
       dispatch({ type: "clearErrors" });
     }
 
@@ -56,7 +83,7 @@ const UserProfile = () => {
       alert(message);
       dispatch({ type: "clearMessage" });
     }
-  }, [error, message, dispatch, likeError]);
+  }, [error, message, dispatch, followError, userProfError]);
   return isLoading === true || userLoading ? (
     <Loader />
   ) : (
@@ -116,6 +143,7 @@ const UserProfile = () => {
                 style={{ background: following ? "red" : "green" }}
                 variant="contained"
                 onClick={handleOnFollow}
+                disabled={followLoading}
               >
                 {following ? "Unfollow" : "Follow"}
               </Button>
