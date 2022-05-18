@@ -13,6 +13,7 @@ const {
   forgetPassword,
   resetPassword,
   getMyPosts,
+  getUserPosts,
 } = require("../controllers/user");
 const { isAuth } = require("../middlewares/auth");
 
@@ -31,5 +32,6 @@ router.route("/users").get(isAuth, getAllUserProfile);
 router.route("/forgot/password").post(forgetPassword);
 router.route("/password/reset/:token").put(resetPassword);
 router.route("/myPost").get(isAuth, getMyPosts);
+router.route("/usersposts/:id").get(isAuth, getUserPosts);
 
 module.exports = router;

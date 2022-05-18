@@ -77,6 +77,34 @@ export const getMyPostAction = () => async (dispatch) => {
     });
   }
 };
+export const getUserPostAction = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: "userPostsRequest" });
+
+    const { data } = await axios.get(`/api/v1/usersposts/${id}`);
+
+    dispatch({ type: "userPostsSuccess", payload: data.posts });
+  } catch (error) {
+    dispatch({
+      type: "userPostsFailure",
+      payload: error.response.data.message,
+    });
+  }
+};
+export const getUserProfileAction = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: "userProfileRequest" });
+
+    const { data } = await axios.get(`/api/v1/user/${id}`);
+
+    dispatch({ type: "userProfileSuccess", payload: data.user });
+  } catch (error) {
+    dispatch({
+      type: "userProfileFailure",
+      payload: error.response.data.message,
+    });
+  }
+};
 export const logoutUserAction = () => async (dispatch) => {
   try {
     dispatch({ type: "logoutUserRequest" });

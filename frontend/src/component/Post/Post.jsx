@@ -187,7 +187,7 @@ const Post = ({
             </Button>
           </form>
 
-          {comments.length > 0 ? (
+          {comments && comments.length > 0 ? (
             comments.map((item) => (
               <CommentCard
                 key={item._id}

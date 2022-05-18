@@ -149,3 +149,20 @@ export const myPostReducer = createReducer(initialState, {
     state.error = null;
   },
 });
+
+export const userPostReducer = createReducer(initialState, {
+  userPostsRequest: (state) => {
+    state.isLoading = true;
+  },
+  userPostsSuccess: (state, action) => {
+    state.isLoading = false;
+    state.posts = action.payload;
+  },
+  userPostsFailure: (state, action) => {
+    state.isLoading = false;
+    state.error = action.payload;
+  },
+  clearErrors: (state) => {
+    state.error = null;
+  },
+});

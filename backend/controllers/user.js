@@ -287,6 +287,36 @@ exports.deleteUserProfile = async (req, res) => {
       await followers.save();
     }
 
+    // remove all  comments if user is delete from all post where user has left comment
+
+    const allPosts = await Post.find();
+
+    for (let i = 0; i < allPosts.length; i++) {
+      const post = await Post.findById(allPosts[i]._id);
+
+      for (let j = 0; j < post.comments.length; j++) {
+        if (post.comments[j].user === userId) {
+          post.comments.splice(j, 1);
+        }
+      }
+
+      await post.save();
+    }
+
+    // remove all likes if user is delete from all post where user has left comment
+
+    for (let i = 0; i < allPosts.length; i++) {
+      const post = await Post.findById(allPosts[i]._id);
+
+      for (let j = 0; j < post.likes.length; j++) {
+        if (post.likes[j] === userId) {
+          post.likes.splice(j, 1);
+        }
+      }
+
+      await post.save();
+    }
+
     res.status(200).json({
       success: true,
       message: "Profile deleted",
@@ -455,6 +485,31 @@ exports.getMyPosts = async (req, res) => {
       );
       posts.push(post);
     }
+    res.status(200).json({
+      success: true,
+      posts,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+exports.getUserPosts = async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+
+    const posts = [];
+
+    for (let i = 0; i < user.posts.length; i++) {
+      const post = await Post.findById(user.posts[i]).populate(
+        "likes comments.user owner"
+      );
+      posts.push(post);
+    }
+
     res.status(200).json({
       success: true,
       posts,
