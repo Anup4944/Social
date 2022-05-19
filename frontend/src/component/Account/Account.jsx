@@ -93,14 +93,14 @@ const Account = () => {
         <Typography variant="h5">{user.name}</Typography>
         <div>
           <button onClick={() => setFollowersTogg(!followersTogg)}>
-            <Typography>Followers</Typography>
+            <Typography variant="h6">Followers</Typography>
           </button>
 
-          <Typography>{user.followers.length}</Typography>
+          <Typography variant="h7">{user.followers.length}</Typography>
         </div>
         <div>
           <button onClick={() => setFollowingTogg(!followingTogg)}>
-            <Typography>Following</Typography>
+            <Typography variant="h6">Following</Typography>
           </button>
 
           <Typography>{user.following.length}</Typography>

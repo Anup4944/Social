@@ -6,7 +6,7 @@
 }
 
 .homeleft {
-  background-image: linear-gradient(to right, #fff5bc, #cec1ff);
+  background-image: linear-gradient(to right, #8360c3, #2ebf91);
   overflow-y: auto;
   scroll-behavior: smooth;
   display: flex;
@@ -16,6 +16,11 @@
   box-sizing: border-box;
 }
 .homeright {
+  background-image: linear-gradient(
+    109.6deg,
+    rgba(156, 252, 248, 1) 11.2%,
+    rgba(110, 123, 251, 1) 91.1%
+  );
   padding: 2vmax;
   box-sizing: border-box;
   overflow-y: auto;
@@ -45,7 +50,8 @@
     grid-template-columns: 2fr 1fr;
   }
 
-  .homeleft {
+  .homeleft,
+  .homeright {
     padding: 0;
     min-height: 90vh;
   }

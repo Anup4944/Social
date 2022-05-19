@@ -4,12 +4,16 @@ import { Avatar, Button, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { registerUserAction } from "../../Actions/User";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [avatar, setAvatar] = useState(null);
   const [password, setPassword] = useState("");
+
+  const [show, setShow] = useState(false);
+
   const dispatch = useDispatch();
   const { isLoading, error } = useSelector((state) => state.user);
 
@@ -75,13 +79,32 @@ const Register = () => {
           onChange={(e) => setEmail(e.target.value)}
         />
         <input
-          type="password"
+          type={show ? "text" : "password"}
           className="registerInputs"
           placeholder="Enter your password"
           required
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
+
+        <Button
+          style={{
+            cursor: "pointer",
+            marginBottom: "3vmax",
+            position: "absolute",
+            left: "60vmax",
+            top: "68vmax",
+          }}
+          onClick={() => {
+            setShow(!show);
+          }}
+        >
+          {show ? (
+            <Visibility />
+          ) : (
+            <VisibilityOff onClick={() => setShow(show)} />
+          )}
+        </Button>
         <Link to="/">
           <Typography>Already Signed up? Login now </Typography>
         </Link>

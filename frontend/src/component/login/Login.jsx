@@ -5,9 +5,13 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loginAction } from "../../Actions/User";
 
+import { Visibility, VisibilityOff } from "@mui/icons-material";
+
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const [show, setShow] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -34,7 +38,7 @@ const Login = () => {
       <form className="loginForm" onSubmit={handleOnSubmit}>
         <Typography
           variant="h4"
-          style={{ padding: "2vmax", textAlign: "center" }}
+          style={{ padding: "2vmax", textAlign: "center", color: "crimson" }}
         >
           G'day! Welcome to my Social App!
         </Typography>
@@ -46,12 +50,32 @@ const Login = () => {
           onChange={(e) => setEmail(e.target.value)}
         />
         <input
-          type="password"
+          type={show ? "text" : "password"}
           placeholder="Enter your password"
           required
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
+
+        <Button
+          style={{
+            cursor: "pointer",
+            marginBottom: "3vmax",
+            position: "absolute",
+            left: "35vmax",
+            top: "26vmax",
+          }}
+          onClick={() => {
+            setShow(!show);
+          }}
+        >
+          {show ? (
+            <Visibility />
+          ) : (
+            <VisibilityOff onClick={() => setShow(show)} />
+          )}
+        </Button>
+
         <Link to="/forget/password">
           <Typography variant="h6">Forget Password </Typography>
         </Link>

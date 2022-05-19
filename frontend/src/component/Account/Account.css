@@ -17,6 +17,11 @@
   scroll-behavior: smooth;
 }
 .accountright {
+  background-image: linear-gradient(
+    109.6deg,
+    rgba(156, 252, 248, 1) 11.2%,
+    rgba(110, 123, 251, 1) 91.1%
+  );
   padding: 2vmax;
   box-sizing: border-box;
   overflow-y: auto;
@@ -45,10 +50,13 @@
   margin-top: 2vmax;
   padding: 0.5vmax 1vmax;
   transition: all 0.5s;
+  font-size: 1.5vmax;
+  font-weight: 700;
 }
 
 .accountright > a:hover {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.253);
+  color: red;
 }
 .accountright > div {
   display: flex;

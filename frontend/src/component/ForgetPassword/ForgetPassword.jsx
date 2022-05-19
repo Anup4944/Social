@@ -32,7 +32,7 @@ const ForgetPassword = () => {
       <form className="forgotPasswordForm" onSubmit={handleOnSubmit}>
         <Typography
           variant="h6"
-          style={{ padding: "2vmax", textAlign: "center" }}
+          style={{ padding: "2vmax", textAlign: "center", color: "crimson" }}
         >
           Forgot Password? No worries, we can fix that easily!
         </Typography>
