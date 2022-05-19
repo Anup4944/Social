@@ -19,6 +19,7 @@ import {
 import {
   getFollowingPostAction,
   getMyPostAction,
+  getUserPostAction,
   loadUserAction,
 } from "../../Actions/User";
 import User from "../User/User";
@@ -35,7 +36,8 @@ const Post = ({
   ownerName,
   isDelete = false,
   isAccount = false,
-  isHomePage = "home",
+  isHomePage = false,
+  userId,
 }) => {
   const [liked, setLiked] = useState(false);
   const [viewLike, setViewLike] = useState(false);
@@ -59,6 +61,10 @@ const Post = ({
     } else {
       dispatch(getFollowingPostAction());
     }
+
+    if (isHomePage) {
+      dispatch(getUserPostAction(userId));
+    }
   };
 
   const handleOnSubmit = async (e) => {
@@ -69,6 +75,10 @@ const Post = ({
       dispatch(getMyPostAction());
     } else {
       dispatch(getFollowingPostAction());
+    }
+
+    if (isHomePage) {
+      dispatch(getUserPostAction(userId));
     }
   };
 
@@ -82,6 +92,10 @@ const Post = ({
     await dispatch(deletePostAction(postId));
     dispatch(getMyPostAction());
     dispatch(loadUserAction());
+
+    if (isHomePage) {
+      dispatch(getUserPostAction(userId));
+    }
   };
 
   useEffect(() => {
@@ -90,10 +104,6 @@ const Post = ({
         setLiked(true);
       }
     });
-
-    // if (homePage === true) {
-    //   dispatch(getUserPostAction());
-    // }
   }, [likes, user._id]);
 
   return (
@@ -149,8 +159,19 @@ const Post = ({
         <Button onClick={handleOnClick}>
           {liked ? <Favorite style={{ color: "red" }} /> : <FavoriteBorder />}
         </Button>
+
         <Button>
           <ChatBubbleOutline onClick={() => setCommentToogle(!commentToogle)} />
+          <Typography
+            style={{
+              border: "none",
+              backgroundColor: "white",
+              cursor: "pointer",
+              margin: "1vmax 2vmax",
+            }}
+          >
+            {comments.length} comments
+          </Typography>
         </Button>
 
         {isDelete ? (

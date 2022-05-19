@@ -101,7 +101,8 @@ const UserProfile = () => {
               ownerImages={post.owner.avatar.url}
               ownerName={post.owner.name}
               ownerId={post.owner._id}
-              isHomePage={"home"}
+              isHomePage={true}
+              userId={id}
             />
           ))
         ) : (
