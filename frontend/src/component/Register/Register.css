@@ -1,12 +1,26 @@
 .register {
   min-height: 100vh;
-  background-image: linear-gradient(to right, #fff5bc, #cec1ff);
+  background: linear-gradient(to right, #fff5bc, #cec1ff);
+  background-size: 400% 400%;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 2vmax;
   box-sizing: border-box;
+  animation: change 10s ease-in-out infinite;
+}
+
+@keyframes change {
+  0% {
+    background-position: 0 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  0% {
+    background-position: 0 50%;
+  }
 }
 
 .registerForm {

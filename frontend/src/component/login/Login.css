@@ -1,11 +1,25 @@
 .login {
   height: 100vh;
-  background-image: linear-gradient(to right, #8360c3, #2ebf91);
+  background: linear-gradient(to right, #8360c3, #2ebf91);
+  background-size: 400% 400%;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 2vmax;
   box-sizing: border-box;
+  animation: changes 10s ease-in-out infinite;
+}
+
+@keyframes changes {
+  0% {
+    background-position: 0 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  0% {
+    background-position: 0 50%;
+  }
 }
 
 .loginForm {
