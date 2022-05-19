@@ -3,7 +3,6 @@ import "./UpdatePassword.css";
 import { Button } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { updatePasswordAction } from "../../Actions/User";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 const UpdatePassword = () => {
   const [oldPassword, setOldPassword] = useState("");
@@ -47,18 +46,16 @@ const UpdatePassword = () => {
         <Button
           style={{
             cursor: "pointer",
-            position: "absolute",
-            left: "35vmax",
-            top: "4.5vmax",
+            color: "red",
           }}
           onClick={() => {
             setShowOld(!showOld);
           }}
         >
           {showOld ? (
-            <Visibility />
+            <label>HIDE PASSWORD</label>
           ) : (
-            <VisibilityOff onClick={() => setShowOld(showOld)} />
+            <label onClick={() => setShowOld(showOld)}>SHOW PASSWORD</label>
           )}
         </Button>
         <input
@@ -73,23 +70,24 @@ const UpdatePassword = () => {
         <Button
           style={{
             cursor: "pointer",
-            marginBottom: "3vmax",
-            position: "absolute",
-            left: "35vmax",
-            top: "13vmax",
+            color: "red",
           }}
           onClick={() => {
             setShowNew(!showNew);
           }}
         >
           {showNew ? (
-            <Visibility />
+            <label>HIDE PASSWORD</label>
           ) : (
-            <VisibilityOff onClick={() => setShowNew(showNew)} />
+            <label onClick={() => setShowNew(showNew)}>SHOW PASSWORD </label>
           )}
         </Button>
 
-        <Button disbaled={isLoading} type="submit">
+        <Button
+          disbaled={isLoading}
+          type="submit"
+          style={{ marginTop: "10px", border: "1px solid blue" }}
+        >
           Update Password
         </Button>
       </form>

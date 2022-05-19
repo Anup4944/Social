@@ -5,13 +5,11 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loginAction } from "../../Actions/User";
 
-import { Visibility, VisibilityOff } from "@mui/icons-material";
-
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const [show, setShow] = useState(false);
+  const [showLogin, setShowLogin] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -50,7 +48,7 @@ const Login = () => {
           onChange={(e) => setEmail(e.target.value)}
         />
         <input
-          type={show ? "text" : "password"}
+          type={showLogin ? "text" : "password"}
           placeholder="Enter your password"
           required
           value={password}
@@ -60,29 +58,34 @@ const Login = () => {
         <Button
           style={{
             cursor: "pointer",
-            marginBottom: "3vmax",
-            position: "absolute",
-            left: "35vmax",
-            top: "26vmax",
           }}
           onClick={() => {
-            setShow(!show);
+            setShowLogin(!showLogin);
           }}
         >
-          {show ? (
-            <Visibility />
+          {showLogin ? (
+            <label>HIDE PASSWORD</label>
           ) : (
-            <VisibilityOff onClick={() => setShow(show)} />
+            <label onClick={() => setShowLogin(showLogin)}>VIEW PASSWORD</label>
           )}
         </Button>
 
         <Link to="/forget/password">
-          <Typography variant="h6">Forget Password </Typography>
+          <Typography variant="h6">Forget Password?</Typography>
         </Link>
-        <Button type="submit">Login</Button>
+        <Button
+          type="submit"
+          style={{
+            border: "1px solid blue",
+            backgroundColor: "rgb(38, 63, 173)",
+            color: "white",
+          }}
+        >
+          Login
+        </Button>
 
         <Link to="/register">
-          <Typography variant="h6">Register </Typography>
+          <Typography variant="h6">New here? Register now </Typography>
         </Link>
       </form>
     </div>

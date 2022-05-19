@@ -4,7 +4,6 @@ import { Avatar, Button, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { registerUserAction } from "../../Actions/User";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -90,26 +89,30 @@ const Register = () => {
         <Button
           style={{
             cursor: "pointer",
-            marginBottom: "3vmax",
-            position: "absolute",
-            left: "60vmax",
-            top: "68vmax",
           }}
           onClick={() => {
             setShow(!show);
           }}
         >
           {show ? (
-            <Visibility />
+            <label> HIDE</label>
           ) : (
-            <VisibilityOff onClick={() => setShow(show)} />
+            <label onClick={() => setShow(show)}>SHOW</label>
           )}
         </Button>
         <Link to="/">
           <Typography>Already Signed up? Login now </Typography>
         </Link>
 
-        <Button disabled={isLoading} type="submit">
+        <Button
+          disabled={isLoading}
+          type="submit"
+          style={{
+            border: "1px solid blue",
+            backgroundColor: "rgb(38, 63, 173)",
+            color: "white",
+          }}
+        >
           Sign Up
         </Button>
       </form>
