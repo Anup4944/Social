@@ -13,7 +13,7 @@ const Login = () => {
 
   const dispatch = useDispatch();
 
-  const { error } = useSelector((state) => state.user);
+  const { error, isLoading } = useSelector((state) => state.user);
   const { message } = useSelector((state) => state.like);
 
   const handleOnSubmit = (e) => {
@@ -80,6 +80,7 @@ const Login = () => {
             backgroundColor: "rgb(38, 63, 173)",
             color: "white",
           }}
+          disabled={isLoading}
         >
           Login
         </Button>
