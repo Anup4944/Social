@@ -5,7 +5,7 @@ export const loginAction = (email, password) => async (dispatch) => {
     dispatch({ type: "LoginRequest" });
 
     const { data } = await axios.post(
-      "/api/v1/login",
+      "https://backendsocialapp.onrender.com/api/v1/login",
       { email, password },
       {
         headers: {
@@ -23,7 +23,9 @@ export const loadUserAction = () => async (dispatch) => {
   try {
     dispatch({ type: "LoadUserRequest" });
 
-    const { data } = await axios.get("/api/v1/profile");
+    const { data } = await axios.get(
+      "https://backendsocialapp.onrender.com/api/v1/profile"
+    );
 
     dispatch({
       type: "LoadUserSuccess",
@@ -38,7 +40,9 @@ export const getFollowingPostAction = () => async (dispatch) => {
   try {
     dispatch({ type: "postOfFollowingRequest" });
 
-    const { data } = await axios.get("/api/v1/posts");
+    const { data } = await axios.get(
+      "https://backendsocialapp.onrender.com/api/v1/posts"
+    );
 
     dispatch({ type: "postOfFollowingSuccess", payload: data.posts });
   } catch (error) {
@@ -54,7 +58,9 @@ export const getAllUsersAction =
     try {
       dispatch({ type: "allUsersRequest" });
 
-      const { data } = await axios.get(`/api/v1/users?name=${name}`);
+      const { data } = await axios.get(
+        `https://backendsocialapp.onrender.com/api/v1/users?name=${name}`
+      );
 
       dispatch({ type: "allUsersSuccess", payload: data.users });
     } catch (error) {
@@ -69,7 +75,7 @@ export const logoutUserAction = () => async (dispatch) => {
   try {
     dispatch({ type: "logoutUserRequest" });
 
-    await axios.get("/api/v1/logout");
+    await axios.get("https://backendsocialapp.onrender.com/api/v1/logout");
 
     dispatch({ type: "logoutUserSuccess" });
   } catch (error) {
@@ -86,7 +92,7 @@ export const registerUserAction =
       dispatch({ type: "RegisterRequest" });
 
       const { data } = await axios.post(
-        "/api/v1/register",
+        "https://backendsocialapp.onrender.com/api/v1/register",
         { name, email, avatar, password },
         {
           headers: {
@@ -110,7 +116,7 @@ export const updateProfileAction =
       dispatch({ type: "updateProfileRequest" });
 
       const { data } = await axios.put(
-        "/api/v1/update/profile",
+        "https://backendsocialapp.onrender.com/api/v1/update/profile",
         { name, email, avatar },
         {
           headers: {
@@ -134,7 +140,7 @@ export const updatePasswordAction =
       dispatch({ type: "updatePasswordRequest" });
 
       const { data } = await axios.put(
-        "/api/v1/update/password",
+        "https://backendsocialapp.onrender.com/api/v1/update/password",
         { oldPassword, newPassword },
         {
           headers: {
@@ -155,7 +161,9 @@ export const deleteProfileAction = () => async (dispatch) => {
   try {
     dispatch({ type: "deleteProfileRequest" });
 
-    const { data } = await axios.delete("/api/v1/delete/profile");
+    const { data } = await axios.delete(
+      "https://backendsocialapp.onrender.com/api/v1/delete/profile"
+    );
 
     dispatch({ type: "deleteProfileSuccess", payload: data.message });
   } catch (error) {
@@ -171,7 +179,7 @@ export const forgotPasswordAction = (email) => async (dispatch) => {
     dispatch({ type: "forgotPasswordRequest" });
 
     const { data } = await axios.post(
-      "/api/v1/forgot/password",
+      "https://backendsocialapp.onrender.com/api/v1/forgot/password",
       { email },
       {
         headers: {
@@ -193,7 +201,7 @@ export const resetPasswordAction = (token, password) => async (dispatch) => {
     dispatch({ type: "resetPasswordRequest" });
 
     const { data } = await axios.put(
-      `/api/v1/password/reset/${token}`,
+      `https://backendsocialapp.onrender.com/api/v1/password/reset/${token}`,
       { password },
       {
         headers: {
@@ -215,7 +223,9 @@ export const getMyPostAction = () => async (dispatch) => {
   try {
     dispatch({ type: "myPostsRequest" });
 
-    const { data } = await axios.get("/api/v1/myPost");
+    const { data } = await axios.get(
+      "https://backendsocialapp.onrender.com/api/v1/myPost"
+    );
 
     dispatch({ type: "myPostsSuccess", payload: data.posts });
   } catch (error) {
@@ -229,7 +239,9 @@ export const getUserPostAction = (id) => async (dispatch) => {
   try {
     dispatch({ type: "userPostsRequest" });
 
-    const { data } = await axios.get(`/api/v1/usersposts/${id}`);
+    const { data } = await axios.get(
+      `https://backendsocialapp.onrender.com/api/v1/usersposts/${id}`
+    );
 
     dispatch({ type: "userPostsSuccess", payload: data.posts });
   } catch (error) {
@@ -243,7 +255,9 @@ export const getUserProfileAction = (id) => async (dispatch) => {
   try {
     dispatch({ type: "userProfileRequest" });
 
-    const { data } = await axios.get(`/api/v1/user/${id}`);
+    const { data } = await axios.get(
+      `https://backendsocialapp.onrender.com/api/v1/user/${id}`
+    );
 
     dispatch({ type: "userProfileSuccess", payload: data.user });
   } catch (error) {
@@ -258,7 +272,9 @@ export const followAndUnfollowAction = (id) => async (dispatch) => {
   try {
     dispatch({ type: "followUserRequest" });
 
-    const { data } = await axios.get(`/api/v1/follow/${id}`);
+    const { data } = await axios.get(
+      `https://backendsocialapp.onrender.com/api/v1/follow/${id}`
+    );
 
     dispatch({ type: "followUserSuccess", payload: data.message });
   } catch (error) {
