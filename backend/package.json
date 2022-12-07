@@ -2,10 +2,9 @@
   "name": "mern-social",
   "version": "1.0.0",
   "description": "This social media backend api ",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "dev": "nodemon backend/server.js",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false && npm install --prefix frontend && npm run build --prefix frontend"
+    "dev": "nodemon server.js"
   },
   "author": "Anup",
   "license": "ISC",
