@@ -4,9 +4,7 @@ export const likePost = (id) => async (dispatch) => {
   try {
     dispatch({ type: "likeRequest" });
 
-    const { data } = await axios.get(
-      `https://backendsocialapp.onrender.com/api/v1/post/${id}`
-    );
+    const { data } = await axios.get(`/api/v1/post/${id}`);
 
     dispatch({ type: "likeSuccess", payload: data.message });
   } catch (error) {
@@ -19,7 +17,7 @@ export const addCommentPostAction = (id, comment) => async (dispatch) => {
     dispatch({ type: "addCommentRequest" });
 
     const { data } = await axios.put(
-      `https://backendsocialapp.onrender.com/api/v1/post/comment/${id}`,
+      `/api/v1/post/comment/${id}`,
       { comment },
       {
         headers: {
@@ -40,12 +38,9 @@ export const deleteCommentPostAction = (id, commentId) => async (dispatch) => {
   try {
     dispatch({ type: "deleteCommentRequest" });
 
-    const { data } = await axios.delete(
-      `https://backendsocialapp.onrender.com/api/v1/post/comment/${id}`,
-      {
-        data: { commentId },
-      }
-    );
+    const { data } = await axios.delete(`/api/v1/post/comment/${id}`, {
+      data: { commentId },
+    });
 
     dispatch({ type: "deleteCommentSuccess", payload: data.message });
   } catch (error) {
@@ -61,7 +56,7 @@ export const createNewPostAction = (caption, image) => async (dispatch) => {
     dispatch({ type: "newPostRequest" });
 
     const { data } = await axios.post(
-      `https://backendsocialapp.onrender.com/api/v1/post/upload`,
+      `/api/v1/post/upload`,
       {
         caption,
         image,
@@ -86,9 +81,7 @@ export const deletePostAction = (id) => async (dispatch) => {
   try {
     dispatch({ type: "deletePostRequest" });
 
-    const { data } = await axios.delete(
-      `https://backendsocialapp.onrender.com/api/v1/post/${id}`
-    );
+    const { data } = await axios.delete(`/api/v1/post/${id}`);
 
     dispatch({ type: "deletePostSuccess", payload: data.message });
   } catch (error) {
@@ -103,7 +96,7 @@ export const updatePostAction = (caption, id) => async (dispatch) => {
     dispatch({ type: "updateCaptionRequest" });
 
     const { data } = await axios.put(
-      `https://backendsocialapp.onrender.com/api/v1/post/${id}`,
+      `/api/v1/post/${id}`,
       {
         caption,
       },
