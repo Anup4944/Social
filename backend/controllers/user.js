@@ -34,11 +34,14 @@ exports.register = async (req, res) => {
       httpOnly: true,
     };
 
+    user.token = token;
+
+    await user.save();
+
     res.status(201).cookie("token", token, options).json({
       success: true,
       message: "User registered succesfully 👋",
       user,
-      token,
     });
   } catch (error) {
     res.status(500).json({
@@ -75,7 +78,13 @@ exports.login = async (req, res) => {
     const options = {
       expires: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000),
       httpOnly: true,
+      // sameSite: true,
+      // signed: true,
     };
+
+    user.token = token;
+
+    await user.save();
 
     res.status(200).cookie("token", token, options).json({
       success: true,

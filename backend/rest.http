@@ -1,22 +1,23 @@
 // ************************* USER ************************* //
 
 ### REGISTER USER
-POST http://localhost:4000/api/v1/register
+POST https://backendsocialapp.onrender.com/api/v1/register
 Content-Type: application/json
 
 {
     "name" : "Danny Welbeck",
     "email":"dw@gmail.com",
-    "password" : "anuppoudel"
+    "password" : "anuppoudel",
+    
 }
 
 ### LOGIN USER
-POST http://localhost:4000/api/v1/login
+POST https://backendsocialapp.onrender.com/api/v1/login
 Content-Type: application/json
 
 {
- "email":"dw@gmail.com",
- "password":"anuppoudel"
+ "email":"anuppoudel60@gmail.com",
+ "password":"password123"
 }
 
 ### LOGOUT USER
