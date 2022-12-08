@@ -34,10 +34,6 @@ exports.register = async (req, res) => {
       httpOnly: true,
     };
 
-    user.token = token;
-
-    await user.save();
-
     res.status(201).cookie("token", token, options).json({
       success: true,
       message: "User registered succesfully 👋",
@@ -81,10 +77,6 @@ exports.login = async (req, res) => {
       // sameSite: true,
       // signed: true,
     };
-
-    user.token = token;
-
-    await user.save();
 
     res.status(200).cookie("token", token, options).json({
       success: true,
