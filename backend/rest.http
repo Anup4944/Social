@@ -1,7 +1,7 @@
 // ************************* USER ************************* //
 
 ### REGISTER USER
-POST https://backendsocialapp.onrender.com/api/v1/register
+POST http://localhost:4000/api/v1/register
 Content-Type: application/json
 
 {
@@ -12,11 +12,11 @@ Content-Type: application/json
 }
 
 ### LOGIN USER
-POST https://backendsocialapp.onrender.com/api/v1/login
+POST http://localhost:4000/api/v1/login
 Content-Type: application/json
 
 {
- "email":"anuppoudel60@gmail.com",
+ "email":"ap@gmail.com",
  "password":"password123"
 }
 
