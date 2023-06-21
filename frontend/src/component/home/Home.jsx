@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getFollowingPostAction, getAllUsersAction } from "../../Actions/User";
 import Loader from "../loader/Loader";
 import { Typography } from "@mui/material";
+import NewPost from "../newPost/NewPost";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -43,6 +44,7 @@ const Home = () => {
   ) : (
     <div className="home">
       <div className="homeleft">
+        <NewPost />
         {posts && posts.length > 0 ? (
           posts.map((item) => (
             <Post

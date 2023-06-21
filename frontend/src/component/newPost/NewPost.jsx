@@ -4,6 +4,7 @@ import { Button, Typography } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import { createNewPostAction } from "../../Actions/Posts";
 import { loadUserAction } from "../../Actions/User";
+import toast, { Toaster } from "react-hot-toast";
 
 const NewPost = () => {
   const [image, setImage] = useState(null);
@@ -31,15 +32,27 @@ const NewPost = () => {
 
     await dispatch(createNewPostAction(caption, image));
     dispatch(loadUserAction());
+    await setImage(null);
+    await setCaption("");
   };
 
   useEffect(() => {
     if (error) {
-      alert(error);
+      toast.error(`${error}`);
       dispatch({ type: "clearErrors" });
     }
     if (message) {
-      alert(message);
+      toast(`${message}`, {
+        duration: 4000,
+        position: "top-center",
+        style: {},
+        className: "",
+        icon: "👏",
+        iconTheme: {
+          primary: "#000",
+          secondary: "#fff",
+        },
+      });
       dispatch({ type: "clearMessage" });
     }
   }, [dispatch, error, message]);
@@ -48,14 +61,15 @@ const NewPost = () => {
     <div className="newPost">
       {" "}
       <form className="newPostForm" onSubmit={handleOnSubmit}>
-        <Typography variant="h3">New posts</Typography>
+        <Toaster />
+        <Typography variant="h4">New posts</Typography>
 
         {image && <img src={image} alt="postImages" />}
 
         <input type="file" accept="image/*" onChange={handleOnImgChange} />
         <input
           type="text"
-          placeholder="Caption"
+          placeholder="Your Caption"
           onChange={(e) => setCaption(e.target.value)}
         />
         <Button disabled={isLoading} type="submit">

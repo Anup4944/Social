@@ -3,6 +3,7 @@ import "./ForgetPassword.css";
 import { Typography, Button } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { forgotPasswordAction } from "../../Actions/User";
+import { Link } from "react-router-dom";
 
 const ForgetPassword = () => {
   const [email, setEmail] = useState("");
@@ -48,6 +49,7 @@ const ForgetPassword = () => {
         <Button disabled={isLoading} type="submit">
           Send Token
         </Button>
+        <Link to="/">Back</Link>
       </form>
     </div>
   );

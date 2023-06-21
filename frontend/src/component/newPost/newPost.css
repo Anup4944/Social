@@ -1,5 +1,6 @@
 .newPost {
-  min-height: 100vh;
+  height: 100vh;
+  width: 100%;
   background-image: linear-gradient(to right, #fff5bc, #cec1ff);
   display: flex;
   align-items: center;
@@ -10,8 +11,8 @@
 
 .newPostForm {
   background-color: white;
-  height: 100%;
-  width: 50%;
+  max-height: 100%;
+  width: 100%;
   border-radius: 30px;
   box-sizing: border-box;
   padding: 2vmax;
@@ -22,7 +23,8 @@
 
 .newPostForm > img {
   width: 100%;
-  object-fit: cover;
+  height: 50vh;
+  object-fit: contain;
 }
 .newPostForm > h3 {
   margin: 2vmax;
