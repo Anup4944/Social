@@ -4,6 +4,7 @@ import { Typography, Button } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loginAction } from "../../Actions/User";
+import { Toaster, toast } from "react-hot-toast";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -23,7 +24,15 @@ const Login = () => {
 
   useEffect(() => {
     if (error) {
-      alert(error);
+      toast(`${error}`, {
+        duration: 4000,
+        position: "top-center",
+        icon: "⚠️",
+        iconTheme: {
+          primary: "#000",
+          secondary: "#fff",
+        },
+      });
       dispatch({ type: "clearErrors" });
     }
     if (message) {
@@ -34,6 +43,7 @@ const Login = () => {
   return (
     <div className="login">
       <form className="loginForm" onSubmit={handleOnSubmit}>
+        <Toaster position="top-center" reverseOrder={false} />
         <Typography
           variant="h4"
           style={{ padding: "2vmax", textAlign: "center", color: "crimson" }}

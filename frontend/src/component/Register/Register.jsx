@@ -115,6 +115,9 @@ const Register = () => {
         >
           Sign Up
         </Button>
+        <Button disabled={isLoading} style={{ marginTop: "1rem" }}>
+          <Link to="/">Back</Link>
+        </Button>
       </form>
     </div>
   );

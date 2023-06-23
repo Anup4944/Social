@@ -12,6 +12,7 @@ import { Avatar, Button, Typography, Dialog } from "@mui/material";
 import "./Account.css";
 import { Link } from "react-router-dom";
 import User from "../User/User";
+import { toast } from "react-hot-toast";
 
 const Account = () => {
   const dispatch = useDispatch();
@@ -32,7 +33,17 @@ const Account = () => {
 
   const handleOnLogout = async () => {
     await dispatch(logoutUserAction());
-    alert("Logged out successfully");
+    toast("Logout success", {
+      duration: 4000,
+      position: "top-center",
+      style: {},
+      className: "",
+      icon: "👋 ",
+      iconTheme: {
+        primary: "#000",
+        secondary: "#fff",
+      },
+    });
   };
 
   const deleteProfile = async () => {
@@ -55,7 +66,18 @@ const Account = () => {
     }
 
     if (message) {
-      alert(message);
+      toast(`${message}`, {
+        duration: 4000,
+        position: "top-center",
+        style: {},
+        className: "",
+        icon: "👏",
+        iconTheme: {
+          primary: "#000",
+          secondary: "#fff",
+        },
+      });
+
       dispatch({ type: "clearMessage" });
     }
   }, [error, message, dispatch, likeError]);

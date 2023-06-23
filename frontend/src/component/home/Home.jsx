@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getFollowingPostAction, getAllUsersAction } from "../../Actions/User";
 import Loader from "../loader/Loader";
 import { Typography } from "@mui/material";
-import NewPost from "../newPost/NewPost";
+import { Toaster, toast } from "react-hot-toast";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -35,16 +35,24 @@ const Home = () => {
     }
 
     if (message) {
-      alert(message);
+      toast(`${message}`, {
+        duration: 4000,
+        position: "top-center",
+        iconTheme: {
+          primary: "#000",
+          secondary: "#fff",
+        },
+      });
       dispatch({ type: "clearMessage" });
+      dispatch(getAllUsersAction());
     }
   }, [error, message, dispatch, likeError]);
   return isLoading === true || usersLoading === true ? (
     <Loader />
   ) : (
     <div className="home">
+      <Toaster />
       <div className="homeleft">
-        <NewPost />
         {posts && posts.length > 0 ? (
           posts.map((item) => (
             <Post

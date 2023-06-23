@@ -4,6 +4,7 @@ import { Typography, Button } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { forgotPasswordAction } from "../../Actions/User";
 import { Link } from "react-router-dom";
+import { Toaster, toast } from "react-hot-toast";
 
 const ForgetPassword = () => {
   const [email, setEmail] = useState("");
@@ -20,17 +21,32 @@ const ForgetPassword = () => {
 
   useEffect(() => {
     if (error) {
-      alert(error);
+      toast(`${error}`, {
+        duration: 4000,
+        position: "top-center",
+        iconTheme: {
+          primary: "#000",
+          secondary: "#fff",
+        },
+      });
       dispatch({ type: "clearErrors" });
     }
     if (message) {
-      alert(message);
+      toast(`${message}`, {
+        duration: 4000,
+        position: "top-center",
+        iconTheme: {
+          primary: "#000",
+          secondary: "#fff",
+        },
+      });
       dispatch({ type: "clearErrors" });
     }
   }, [message, error, dispatch]);
   return (
     <div className="forgotPassword">
       <form className="forgotPasswordForm" onSubmit={handleOnSubmit}>
+        <Toaster />
         <Typography
           variant="h6"
           style={{ padding: "2vmax", textAlign: "center", color: "crimson" }}
@@ -49,7 +65,9 @@ const ForgetPassword = () => {
         <Button disabled={isLoading} type="submit">
           Send Token
         </Button>
-        <Link to="/">Back</Link>
+        <Button disabled={isLoading}>
+          <Link to="/">Back</Link>
+        </Button>
       </form>
     </div>
   );

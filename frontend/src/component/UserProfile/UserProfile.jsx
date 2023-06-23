@@ -10,6 +10,7 @@ import Post from "../Post/Post";
 import { Avatar, Button, Typography, Dialog } from "@mui/material";
 import User from "../User/User";
 import { useParams } from "react-router-dom";
+import { Toaster, toast } from "react-hot-toast";
 
 const UserProfile = () => {
   const dispatch = useDispatch();
@@ -80,7 +81,14 @@ const UserProfile = () => {
     }
 
     if (message) {
-      alert(message);
+      toast(`${message}`, {
+        duration: 4000,
+        position: "top-center",
+        iconTheme: {
+          primary: "#000",
+          secondary: "#fff",
+        },
+      });
       dispatch({ type: "clearMessage" });
     }
   }, [error, message, dispatch, followError, userProfError]);
@@ -88,6 +96,7 @@ const UserProfile = () => {
     <Loader />
   ) : (
     <div className="account">
+      <Toaster />
       <div className="accountleft">
         {posts && posts.length > 0 ? (
           posts.map((post) => (

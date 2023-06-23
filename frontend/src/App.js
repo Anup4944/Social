@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loadUserAction } from "./Actions/User";
 
-// import Header from "./component/header/Header";
+import Header from "./component/header/Header";
 // import Home from "./component/home/Home";
 import Login from "./component/login/Login";
 
@@ -27,7 +27,6 @@ const Home = lazy(() => import("./component/home/Home"));
 const ForgetPassword = lazy(() =>
   import("./component/ForgetPassword/ForgetPassword")
 );
-const Header = lazy(() => import("./component/header/Header"));
 
 function App() {
   const dispatch = useDispatch();
@@ -38,10 +37,10 @@ function App() {
   const { isAuth } = useSelector((state) => state.user);
 
   return (
-    <Suspense fallback={<Loader />}>
-      <Router>
-        {isAuth && <Header />}
+    <Router>
+      {isAuth && <Header />}
 
+      <Suspense fallback={<Loader />}>
         <Routes>
           <Route path="/" element={isAuth ? <Home /> : <Login />} />
           <Route path="/account" element={isAuth ? <Account /> : <Login />} />
@@ -74,8 +73,8 @@ function App() {
 
           <Route path="*" element={<NotFound />} />
         </Routes>
-      </Router>
-    </Suspense>
+      </Suspense>
+    </Router>
   );
 }
 
