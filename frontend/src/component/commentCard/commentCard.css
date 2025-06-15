@@ -9,8 +9,9 @@
   text-decoration: none;
   color: rgb(0, 0, 0);
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
   transition: all 0.5s;
+  background:red
 }
 .commentUser img {
   height: 3vmax;
@@ -20,10 +21,12 @@
   border: 3px solid rgb(255, 201, 201);
 }
 
+
+
 .commentUser > a:hover {
   transform: translateY(-10px);
 }
 
-.commentUser > button {
+.commentUser > div > button {
   color: red;
 }

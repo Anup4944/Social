@@ -37,7 +37,8 @@ const CommentCard = ({
         <Typography style={{ minWidth: "15vmax" }}>{name}</Typography>
       </Link>
 
-      <Typography>{comment}</Typography>
+   
+    <Typography>{comment}</Typography>
       {isAccount ? (
         <Button onClick={handleOnDelete}>
           <Delete />
@@ -47,6 +48,7 @@ const CommentCard = ({
           <Delete />
         </Button>
       ) : null}
+   
     </div>
   );
 };
