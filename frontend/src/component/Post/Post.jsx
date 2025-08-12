@@ -141,24 +141,31 @@ const Post = ({
         </Typography>
       </div>
 
-      <button
-        onClick={() => setViewLike(!viewLike)}
-        disabled={likes.length === 0 ? true : false}
-        style={{
-          border: "none",
-          backgroundColor: "white",
-          cursor: "pointer",
-          margin: "1vmax 2vmax",
-        }}
-      >
-        {" "}
-        <Typography>{likes.length} likes</Typography>
-      </button>
-
-      <div className="postFooter">
-        <Button onClick={handleOnClick}>
-          {liked ? <Favorite style={{ color: "red" }} /> : <FavoriteBorder />}
-        </Button>
+      <div className="actionComponent">
+        <div className="likeComponent">
+          <div className="postFooter">
+            <Button onClick={handleOnClick}>
+              {liked ? (
+                <Favorite style={{ color: "red" }} />
+              ) : (
+                <FavoriteBorder />
+              )}
+            </Button>
+          </div>
+          <button
+            onClick={() => setViewLike(!viewLike)}
+            disabled={likes.length === 0 ? true : false}
+            style={{
+              border: "none",
+              backgroundColor: "white",
+              cursor: "pointer",
+              margin: "1vmax 2vmax",
+            }}
+          >
+            {" "}
+            <Typography>{likes.length} likes</Typography>
+          </button>
+        </div>
 
         <Button>
           <ChatBubbleOutline onClick={() => setCommentToogle(!commentToogle)} />

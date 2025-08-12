@@ -32,23 +32,22 @@ const CommentCard = ({
 
   return (
     <div className="commentUser">
-      <Link to={`/user/${userId}`}>
-        <img src={avatar} alt={name} />
-        <Typography style={{ minWidth: "15vmax" }}>{name}</Typography>
+      <Link to={`/user/${userId}`} className="commentUser__link">
+        <img src={avatar} alt={name} className="commentUser__avatar" />
+        <Typography className="commentUser__name">{name}</Typography>
       </Link>
 
-   
-    <Typography>{comment}</Typography>
-      {isAccount ? (
-        <Button onClick={handleOnDelete}>
+      <Typography className="commentUser__text">{comment}</Typography>
+
+      {(isAccount || userId === user._id) && (
+        <Button
+          onClick={handleOnDelete}
+          className="commentUser__delete"
+          aria-label="Delete comment"
+        >
           <Delete />
         </Button>
-      ) : userId === user._id ? (
-        <Button onClick={handleOnDelete}>
-          <Delete />
-        </Button>
-      ) : null}
-   
+      )}
     </div>
   );
 };

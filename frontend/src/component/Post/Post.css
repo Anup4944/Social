@@ -33,6 +33,20 @@
   margin: 1vmax;
 }
 
+.actionComponent {
+  display: flex;
+  align-items: center;
+  gap: 0.5vmax;
+}
+
+.likeComponent {
+  display: flex;
+  align-items: center;
+  gap: 0.2vmax;
+}
+.postFooter {
+  margin: 0;
+}
 .postFooter > button {
   color: rgba(0, 0, 0, 0.767);
   margin: 0 1vmax;

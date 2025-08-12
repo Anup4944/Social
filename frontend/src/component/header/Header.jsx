@@ -8,12 +8,14 @@ import {
   AddOutlined,
   Search,
   SearchOutlined,
-  AccountCircle,
-  AccountCircleOutlined,
 } from "@mui/icons-material";
+import { useSelector } from "react-redux";
+import { Avatar } from "@mui/material";
 
 const Header = () => {
   const [tab, setTab] = useState(window.location.pathname);
+  const { user: currentUser } = useSelector((state) => state.user);
+  console.log(currentUser?.avatar.url);
 
   return (
     <div className="header">
@@ -37,12 +39,18 @@ const Header = () => {
         )}
       </Link>
 
-      <Link to="/account" onClick={() => setTab("/account")}>
+      {/* <Link to="/account" onClick={() => setTab("/account")}>
         {tab === "/account" ? (
           <AccountCircle style={{ color: "black" }} />
         ) : (
           <AccountCircleOutlined />
         )}
+      </Link> */}
+      <Link to="/account" onClick={() => setTab("/account")}>
+        <Avatar
+          src={currentUser?.avatar.url}
+          sx={{ height: "2vmax", width: "2vmax" }}
+        />
       </Link>
     </div>
   );

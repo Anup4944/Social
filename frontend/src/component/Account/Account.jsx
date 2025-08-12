@@ -113,24 +113,26 @@ const Account = () => {
         />
 
         <Typography variant="h5">{user.name}</Typography>
-        <div>
-          <button onClick={() => setFollowersTogg(!followersTogg)}>
-            <Typography variant="h6">Followers</Typography>
-          </button>
+        <div className="accountDetails">
+          <div>
+            <button>
+              <Typography>Posts</Typography>
+              <Typography variant="h7">({user.posts.length})</Typography>
+            </button>
+          </div>
+          <div>
+            <button onClick={() => setFollowersTogg(!followersTogg)}>
+              <Typography variant="h6">Followers</Typography>
+              <Typography variant="h7">({user.followers.length})</Typography>
+            </button>
+          </div>
 
-          <Typography variant="h7">{user.followers.length}</Typography>
-        </div>
-        <div>
-          <button onClick={() => setFollowingTogg(!followingTogg)}>
-            <Typography variant="h6">Following</Typography>
-          </button>
-
-          <Typography>{user.following.length}</Typography>
-        </div>
-        <div>
-          <Typography>Posts</Typography>
-
-          <Typography>{user.posts.length}</Typography>
+          <div>
+            <button onClick={() => setFollowingTogg(!followingTogg)}>
+              <Typography variant="h6">Following</Typography>
+              <Typography variant="h7">({user.following.length})</Typography>
+            </button>
+          </div>
         </div>
 
         <Button

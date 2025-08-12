@@ -1,32 +1,70 @@
 .commentUser {
   display: flex;
   align-items: center;
+  gap: 1vmax;
+  padding: 0.5vmax 0;
   color: rgba(0, 0, 0, 0.507);
+  width: 100%;
 }
 
-.commentUser > a {
+.commentUser__link {
   display: flex;
-  text-decoration: none;
-  color: rgb(0, 0, 0);
   align-items: center;
-  justify-content: space-between;
-  transition: all 0.5s;
-  background:red
-}
-.commentUser img {
-  height: 3vmax;
-  width: 3vmax;
-  margin: 1vmax;
-  border-radius: 100%;
-  border: 3px solid rgb(255, 201, 201);
+  text-decoration: none;
+  color: inherit;
+  gap: 0.5vmax;
+  min-width: 15%;
+  transition: transform 0.3s ease;
 }
 
-
-
-.commentUser > a:hover {
-  transform: translateY(-10px);
+.commentUser__avatar {
+  height: 2.5vmax;
+  width: 2.5vmax;
+  border-radius: 50%;
+  border: 2px solid rgb(255, 201, 201);
+  object-fit: cover;
 }
 
-.commentUser > div > button {
-  color: red;
+.commentUser__name {
+  font-weight: 500;
+  color: #333;
+  white-space: nowrap;
+}
+
+.commentUser__text {
+  flex: 1;
+  margin: 0;
+  padding: 0 1vmax;
+  word-break: break-word;
+}
+
+.commentUser__delete {
+  color: #ff4444 !important;
+  margin-left: auto;
+  padding: 0.5vmax;
+  min-width: unset;
+}
+
+.commentUser__link:hover {
+  transform: translateY(-2px);
+  color: #000;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 768px) {
+  .commentUser {
+    gap: 0.5vmax;
+    flex-wrap: wrap;
+  }
+
+  .commentUser__avatar {
+    height: 3vmax;
+    width: 3vmax;
+  }
+
+  .commentUser__text {
+    padding: 0.5vmax 0;
+    order: 3;
+    width: 100%;
+  }
 }
