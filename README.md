@@ -30,7 +30,7 @@ MySocialApp is a social media platform that allows users to connect, share posts
 
 ## Demo
 
-You can access the live demo of MySocialApp [here](https://mysocialapp.onrender.com).
+You can access the live demo of MySocialApp [here](https://my-social-app-3vzk.onrender.com/).
 
 ## Getting Started
 
