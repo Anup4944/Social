@@ -16,7 +16,11 @@ exports.register = async (req, res) => {
         .json({ success: false, message: "User already exits" });
     }
 
-    const myCloud = await cloudinary.v2.uploader.upload(avatar, {
+    // const myCloud = await cloudinary.v2.uploader.upload(avatar, {
+    //   folder: "avatars",
+    // });
+
+    const myCloud = await cloudinary.uploader.upload(avatar, {
       folder: "avatars",
     });
 
@@ -206,9 +210,18 @@ exports.updateProfile = async (req, res) => {
       user.email = email;
     }
     if (avatar) {
-      await cloudinary.v2.uploader.destroy(user.avatar.public_id);
+      // await cloudinary.v2.uploader.destroy(user.avatar.public_id);
+      await cloudinary.uploader.destroy(user.avatar.public_id);
 
-      const myCloud = await cloudinary.v2.uploader.upload(avatar, {
+      // await cloudinary.uploader.destroy(user.avatar.public_id, {
+      //   folder: "avatars",
+      // });
+
+      // const myCloud = await cloudinary.v2.uploader.upload(avatar, {
+      //   folder: "avatars",
+      // });
+
+      const myCloud = await cloudinary.uploader.upload(avatar, {
         folder: "avatars",
       });
 
@@ -244,7 +257,7 @@ exports.deleteUserProfile = async (req, res) => {
 
     // remove images from cloud data
 
-    await cloudinary.v2.uploader.destroy(user.avatar.public_id);
+    await cloudinary.uploader.destroy(user.avatar.public_id);
 
     await user.remove();
 
@@ -259,7 +272,7 @@ exports.deleteUserProfile = async (req, res) => {
 
     for (let i = 0; i < posts.length; i++) {
       const post = await Post.findById(posts[i]);
-      await cloudinary.v2.uploader.destroy(post.image.public_id);
+      await cloudinary.uploader.destroy(post.image.public_id);
 
       await post.remove();
     }
