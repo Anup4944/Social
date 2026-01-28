@@ -2,7 +2,7 @@ const User = require("../models/User");
 const Post = require("../models/Post");
 const { sendEmail } = require("../middlewares/sendEmail");
 const crypto = require("crypto");
-const cloudinary = require("cloudinary");
+const cloudinary = require("cloudinary").v2;
 
 exports.register = async (req, res) => {
   try {
@@ -15,10 +15,6 @@ exports.register = async (req, res) => {
         .status(400)
         .json({ success: false, message: "User already exits" });
     }
-
-    // const myCloud = await cloudinary.v2.uploader.upload(avatar, {
-    //   folder: "avatars",
-    // });
 
     const myCloud = await cloudinary.uploader.upload(avatar, {
       folder: "avatars",
@@ -346,7 +342,7 @@ exports.deleteUserProfile = async (req, res) => {
 exports.myProfile = async (req, res) => {
   try {
     const user = await User.findById(req.user._id).populate(
-      "posts followers following"
+      "posts followers following",
     );
     res.status(200).json({
       success: true,
@@ -363,7 +359,7 @@ exports.myProfile = async (req, res) => {
 exports.getUserProfile = async (req, res) => {
   try {
     const user = await User.findById(req.params.id).populate(
-      "posts followers following"
+      "posts followers following",
     );
 
     if (!user) {
@@ -418,7 +414,7 @@ exports.forgetPassword = async (req, res) => {
     await user.save();
 
     const resetUrl = `${req.protocol}://${req.get(
-      "host"
+      "host",
     )}/password/reset/${resetPasswordToken}`;
 
     const message = `Reset your password by clicking on the link below: \n\n ${resetUrl}`;
@@ -497,7 +493,7 @@ exports.getMyPosts = async (req, res) => {
 
     for (let i = 0; i < user.posts.length; i++) {
       const post = await Post.findById(user.posts[i]).populate(
-        "likes comments.user owner"
+        "likes comments.user owner",
       );
       posts.push(post);
     }
@@ -521,7 +517,7 @@ exports.getUserPosts = async (req, res) => {
 
     for (let i = 0; i < user.posts.length; i++) {
       const post = await Post.findById(user.posts[i]).populate(
-        "likes comments.user owner"
+        "likes comments.user owner",
       );
       posts.push(post);
     }
