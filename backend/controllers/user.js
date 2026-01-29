@@ -2,10 +2,13 @@ const User = require("../models/User");
 const Post = require("../models/Post");
 const { sendEmail } = require("../middlewares/sendEmail");
 const crypto = require("crypto");
-const cloudinary = require("cloudinary").v2;
+const cloudinary = require("cloudinary");
 
 exports.register = async (req, res) => {
   try {
+    // 🔥 TEMP DEBUG - Add these 3 lines
+    console.log("🔥 Cloud name in route:", process.env.CLOUDINARY_CLOUD_NAME);
+    console.log("🔥 Config loaded?", !!cloudinary.config().cloud_name);
     const { name, email, password, avatar } = req.body;
 
     let user = await User.findOne({ email });

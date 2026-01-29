@@ -20,20 +20,20 @@ app.use(express.urlencoded({ limit: "50mb", extended: true }));
 
 //import routes
 
-app.get("/debug-env", (req, res) => {
-  res.json({
-    cloud_name: process.env.CLOUDINARY_CLOUD_NAME || "MISSING",
-    api_key_exists: !!process.env.CLOUDINARY_API_KEY,
-    api_secret_exists: !!process.env.CLOUDINARY_API_SECRET,
-    all_cloudinary_vars: {
-      CLOUDINARY_CLOUD_NAME: process.env.CLOUDINARY_CLOUD_NAME,
-      CLOUDINARY_API_KEY: process.env.CLOUDINARY_API_KEY ? "EXISTS" : "MISSING",
-      CLOUDINARY_API_SECRET: process.env.CLOUDINARY_API_SECRET
-        ? "EXISTS"
-        : "MISSING",
-    },
-  });
-});
+// app.get("/debug-env", (req, res) => {
+//   res.json({
+//     cloud_name: process.env.CLOUDINARY_CLOUD_NAME || "MISSING",
+//     api_key_exists: !!process.env.CLOUDINARY_API_KEY,
+//     api_secret_exists: !!process.env.CLOUDINARY_API_SECRET,
+//     all_cloudinary_vars: {
+//       CLOUDINARY_CLOUD_NAME: process.env.CLOUDINARY_CLOUD_NAME,
+//       CLOUDINARY_API_KEY: process.env.CLOUDINARY_API_KEY ? "EXISTS" : "MISSING",
+//       CLOUDINARY_API_SECRET: process.env.CLOUDINARY_API_SECRET
+//         ? "EXISTS"
+//         : "MISSING",
+//     },
+//   });
+// });
 
 const postRoute = require("./routes/post");
 const userRoute = require("./routes/user");
