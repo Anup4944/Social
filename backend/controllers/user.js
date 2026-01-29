@@ -6,9 +6,8 @@ const cloudinary = require("cloudinary");
 
 exports.register = async (req, res) => {
   try {
-    // 🔥 TEMP DEBUG - Add these 3 lines
-    console.log("🔥 Cloud name in route:", process.env.CLOUDINARY_CLOUD_NAME);
-    console.log("🔥 Config loaded?", !!cloudinary.config().cloud_name);
+    console.log("🔥 REGISTER HIT - avatar length:", req.body.avatar?.length);
+    console.log("🔥 Cloud name:", process.env.CLOUDINARY_CLOUD_NAME);
     const { name, email, password, avatar } = req.body;
 
     let user = await User.findOne({ email });
@@ -23,6 +22,7 @@ exports.register = async (req, res) => {
       folder: "avatars",
     });
 
+    console.log("✅ UPLOAD SUCCESS:", myCloud.public_id);
     user = await User.create({
       name,
       email,
@@ -43,6 +43,9 @@ exports.register = async (req, res) => {
       user,
     });
   } catch (error) {
+    console.log("❌ FULL ERROR:", error.message);
+    console.log("❌ HTTP CODE:", error.http_code);
+    console.log("❌ ERROR OBJ:", JSON.stringify(error.error));
     res.status(500).json({
       success: false,
       message: error.message,
