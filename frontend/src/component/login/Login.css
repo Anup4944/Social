@@ -74,7 +74,7 @@
 }
 
 .loginForm > a {
-  align-self: flex-end;
+  align-self: center;
   text-decoration: none;
   color: var(--text-color);
   margin: 2vmax;
