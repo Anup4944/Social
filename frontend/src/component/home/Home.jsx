@@ -26,11 +26,11 @@ const Home = () => {
 
   useEffect(() => {
     if (error) {
-      alert(error);
+      toast.error(error);
       dispatch({ type: "clearErrors" });
     }
     if (likeError) {
-      alert(likeError);
+      toast.error(likeError);
       dispatch({ type: "clearErrors" });
     }
 

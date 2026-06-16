@@ -12,7 +12,7 @@ import { Avatar, Button, Typography, Dialog } from "@mui/material";
 import "./Account.css";
 import { Link } from "react-router-dom";
 import User from "../User/User";
-import { toast } from "react-hot-toast";
+import { Toaster, toast } from "react-hot-toast";
 
 const Account = () => {
   const dispatch = useDispatch();
@@ -57,11 +57,11 @@ const Account = () => {
 
   useEffect(() => {
     if (error) {
-      alert(error);
+      toast.error(error);
       dispatch({ type: "clearErrors" });
     }
     if (likeError) {
-      alert(likeError);
+      toast.error(likeError);
       dispatch({ type: "clearErrors" });
     }
 
@@ -85,6 +85,7 @@ const Account = () => {
     <Loader />
   ) : (
     <div className="account">
+      <Toaster position="top-center" />
       <div className="accountleft">
         {posts && posts.length > 0 ? (
           posts.map((post) => (
@@ -197,7 +198,7 @@ const Account = () => {
               ))
             ) : (
               <Typography style={{ margin: "2vmax" }}>
-                You have no followers
+                Not following anyone yet
               </Typography>
             )}
           </div>

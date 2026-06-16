@@ -104,6 +104,12 @@
   white-space: nowrap; /* Prevents text wrapping */
 }
 
+@media screen and (max-width: 900px) {
+  .account {
+    grid-template-columns: 1fr 280px;
+  }
+}
+
 @media screen and (max-width: 600px) {
   .account {
     grid-template-columns: 2fr 1fr;

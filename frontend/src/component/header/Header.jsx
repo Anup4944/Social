@@ -15,7 +15,6 @@ import { Avatar } from "@mui/material";
 const Header = () => {
   const [tab, setTab] = useState(window.location.pathname);
   const { user: currentUser } = useSelector((state) => state.user);
-  console.log(currentUser?.avatar.url);
 
   return (
     <div className="header">

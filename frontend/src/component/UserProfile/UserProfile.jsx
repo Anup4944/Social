@@ -52,31 +52,23 @@ const UserProfile = () => {
   }, [dispatch, id]);
 
   useEffect(() => {
-    if (myself._id === id) {
-      setMyProfile(true);
-    }
+    setMyProfile(myself._id === id);
     if (user) {
-      user.followers.forEach((item) => {
-        if (item._id === myself._id) {
-          setFollowing(true);
-        } else {
-          setFollowing(false);
-        }
-      });
+      setFollowing(user.followers.some((item) => item._id === myself._id));
     }
   }, [user, id, myself._id]);
 
   useEffect(() => {
     if (error) {
-      alert(error);
+      toast.error(error);
       dispatch({ type: "clearErrors" });
     }
     if (followError) {
-      alert(followError);
+      toast.error(followError);
       dispatch({ type: "clearErrors" });
     }
     if (userProfError) {
-      alert(userProfError);
+      toast.error(userProfError);
       dispatch({ type: "clearErrors" });
     }
 
@@ -194,7 +186,7 @@ const UserProfile = () => {
             <Typography variant="h4">Following</Typography>
 
             {user && user.following.length > 0 ? (
-              user.followers.map((item) => (
+              user.following.map((item) => (
                 <User
                   key={item._id}
                   userId={item._id}
@@ -204,7 +196,7 @@ const UserProfile = () => {
               ))
             ) : (
               <Typography style={{ margin: "2vmax" }}>
-                You have no followers
+                Not following anyone yet
               </Typography>
             )}
           </div>

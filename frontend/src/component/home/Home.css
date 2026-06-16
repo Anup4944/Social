@@ -57,6 +57,12 @@
   transform: translateY(-10px);
 }
 
+@media screen and (max-width: 900px) {
+  .home {
+    grid-template-columns: 1fr 280px;
+  }
+}
+
 @media screen and (max-width: 600px) {
   .home {
     grid-template-columns: 2fr 1fr;

@@ -4,6 +4,7 @@ import { Avatar, Button, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { registerUserAction } from "../../Actions/User";
+import { Toaster, toast } from "react-hot-toast";
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -36,12 +37,13 @@ const Register = () => {
 
   useEffect(() => {
     if (error) {
-      alert(error);
+      toast.error(error);
       dispatch({ type: "clearErrors" });
     }
   }, [dispatch, error]);
   return (
     <div className="register">
+      <Toaster position="top-center" />
       <form className="registerForm" onSubmit={handleOnRegSubmit}>
         <Typography
           variant="h4"

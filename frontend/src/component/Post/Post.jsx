@@ -110,7 +110,7 @@ const Post = ({
     <div className="post">
       <div className="postHeader">
         {isAccount ? (
-          <Button onClick={() => setUpdateToogle(!updateToogle)}>
+          <Button onClick={() => setUpdateToogle(!updateToogle)} aria-label="Edit post">
             <MoreVert />
           </Button>
         ) : null}
@@ -144,7 +144,7 @@ const Post = ({
       <div className="actionComponent">
         <div className="likeComponent">
           <div className="postFooter">
-            <Button onClick={handleOnClick}>
+            <Button onClick={handleOnClick} aria-label={liked ? "Unlike post" : "Like post"}>
               {liked ? (
                 <Favorite style={{ color: "red" }} />
               ) : (
@@ -167,7 +167,7 @@ const Post = ({
           </button>
         </div>
 
-        <Button>
+        <Button aria-label="View comments">
           <ChatBubbleOutline onClick={() => setCommentToogle(!commentToogle)} />
           <Typography
             style={{
@@ -182,14 +182,14 @@ const Post = ({
         </Button>
 
         {isDelete ? (
-          <Button onClick={deletePost}>
+          <Button onClick={deletePost} aria-label="Delete post">
             <DeleteOutline />
           </Button>
         ) : null}
       </div>
       <Dialog open={viewLike} onClose={() => setViewLike(!viewLike)}>
         <div className="DialogBox">
-          <Typography varient="h4"> Liked by</Typography>
+          <Typography variant="h4"> Liked by</Typography>
           {likes.map((item) => (
             <User
               key={item._id}
@@ -206,7 +206,7 @@ const Post = ({
         onClose={() => setCommentToogle(!commentToogle)}
       >
         <div className="DialogBox">
-          <Typography varient="h4"> Comments</Typography>
+          <Typography variant="h4"> Comments</Typography>
           <form className="commentForm" onSubmit={handleOnSubmit}>
             <input
               type="text"
@@ -244,7 +244,7 @@ const Post = ({
         onClose={() => setUpdateToogle(!updateToogle)}
       >
         <div className="DialogBox">
-          <Typography varient="h4"> Update caption</Typography>
+          <Typography variant="h4"> Update caption</Typography>
           <form className="commentForm" onSubmit={handleOnUpdate}>
             <input
               type="text"

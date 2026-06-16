@@ -43,7 +43,7 @@ export const getFollowingPostAction = () => async (dispatch) => {
     dispatch({ type: "postOfFollowingSuccess", payload: data.posts });
   } catch (error) {
     dispatch({
-      type: "postOfFolowingFailure",
+      type: "postOfFollowingFailure",
       payload: error.response.data.message,
     });
   }
