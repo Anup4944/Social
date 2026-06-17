@@ -1,0 +1,1 @@
+- [Vite migration for CRA .js JSX files](vite-jsx-js-migration.md) — .js files with JSX need a custom transform plugin + `jsx:"automatic"` to avoid "React is not defined" crash.

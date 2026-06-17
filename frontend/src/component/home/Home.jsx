@@ -1,15 +1,16 @@
-import React, { useEffect } from "react";
-import User from "../User/User";
+import React, { useEffect, useState } from "react";
 import "./Home.css";
 import Post from "../Post/Post";
+import User from "../User/User";
 import { useDispatch, useSelector } from "react-redux";
 import { getFollowingPostAction, getAllUsersAction } from "../../Actions/User";
 import Loader from "../loader/Loader";
-import { Typography } from "@mui/material";
+import { Typography, Button } from "@mui/material";
 import { Toaster, toast } from "react-hot-toast";
 
 const Home = () => {
   const dispatch = useDispatch();
+  const [searchName, setSearchName] = useState("");
 
   const { isLoading, posts, error } = useSelector(
     (state) => state.postOfFollowing
@@ -47,6 +48,12 @@ const Home = () => {
       dispatch(getAllUsersAction());
     }
   }, [error, message, dispatch, likeError]);
+
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    dispatch(getAllUsersAction(searchName));
+  };
+
   return isLoading === true || usersLoading === true ? (
     <Loader />
   ) : (
@@ -74,14 +81,26 @@ const Home = () => {
         )}
       </div>
       <div className="homeright">
-        <Typography
-          variant="h6"
-          fontWeight={500}
-          color="rgba(0,0,0,0.582)"
-          style={{ textAlign: "center" }}
-        >
-          Follow users
-        </Typography>
+        <form className="homeSearch" onSubmit={handleSearchSubmit}>
+          <Typography
+            variant="h6"
+            fontWeight={600}
+            style={{ marginBottom: "1vmax", textAlign: "center" }}
+          >
+            Find People
+          </Typography>
+          <div className="homeSearchBar">
+            <input
+              type="text"
+              placeholder="Search users..."
+              value={searchName}
+              onChange={(e) => setSearchName(e.target.value)}
+            />
+            <Button type="submit" size="small" variant="contained">
+              Go
+            </Button>
+          </div>
+        </form>
 
         {users && users.length > 0 ? (
           users.map((item) => (
@@ -93,7 +112,9 @@ const Home = () => {
             />
           ))
         ) : (
-          <Typography variant="h6">No users</Typography>
+          <Typography variant="body2" style={{ textAlign: "center", marginTop: "1vmax" }}>
+            No users found
+          </Typography>
         )}
       </div>
     </div>

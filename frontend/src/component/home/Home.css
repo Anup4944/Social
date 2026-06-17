@@ -38,6 +38,33 @@
   display: none; /* Chrome, Safari, Opera */
 }
 
+.homeSearch {
+  width: 100%;
+  padding: 1vmax;
+  box-sizing: border-box;
+}
+
+.homeSearchBar {
+  display: flex;
+  gap: 0.5vmax;
+  align-items: center;
+  width: 100%;
+}
+
+.homeSearchBar > input {
+  flex: 1;
+  padding: 0.6vmax 1vmax;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 20px;
+  font: 100 0.9rem "Roboto", sans-serif;
+  outline: none;
+  min-width: 0;
+}
+
+.homeSearchBar > input:focus {
+  border-color: rgba(0, 0, 0, 0.5);
+}
+
 .homeUser {
   display: flex;
   align-items: center;

@@ -19,7 +19,6 @@ import UpdatePassword from "./component/UpdatePassword/UpdatePassword";
 // import ForgetPassword from "./component/ForgetPassword/ForgetPassword";
 import ResetPassword from "./component/ResetPassword/ResetPassword";
 import UserProfile from "./component/UserProfile/UserProfile";
-import Search from "./component/Search/Search";
 import NotFound from "./component/NotFound/NotFound";
 import Loader from "./component/loader/Loader";
 
@@ -69,8 +68,6 @@ function App() {
             path="/user/:id"
             element={isAuth ? <UserProfile /> : <Login />}
           />
-          <Route path="/search" element={isAuth ? <Search /> : <Login />} />
-
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>

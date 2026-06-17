@@ -6,8 +6,6 @@ import {
   HomeOutlined,
   Add,
   AddOutlined,
-  Search,
-  SearchOutlined,
 } from "@mui/icons-material";
 import { useSelector } from "react-redux";
 import { Avatar } from "@mui/material";
@@ -27,14 +25,6 @@ const Header = () => {
           <Add style={{ color: "black" }} />
         ) : (
           <AddOutlined />
-        )}
-      </Link>
-
-      <Link to="/search" onClick={() => setTab("/search")}>
-        {tab === "/search" ? (
-          <Search style={{ color: "black" }} />
-        ) : (
-          <SearchOutlined />
         )}
       </Link>
 
