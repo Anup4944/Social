@@ -6,7 +6,7 @@ import { createNewPostAction } from "../../Actions/Posts";
 import { loadUserAction } from "../../Actions/User";
 import toast, { Toaster } from "react-hot-toast";
 
-const NewPost = () => {
+const NewPost = ({ inline = false }) => {
   const [image, setImage] = useState(null);
   const [caption, setCaption] = useState("");
 
@@ -16,10 +16,8 @@ const NewPost = () => {
 
   const handleOnImgChange = (e) => {
     const file = e.target.files[0];
-
     const Reader = new FileReader();
     Reader.readAsDataURL(file);
-
     Reader.onload = () => {
       if (Reader.readyState === 2) {
         setImage(Reader.result);
@@ -29,14 +27,14 @@ const NewPost = () => {
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
-
     await dispatch(createNewPostAction(caption, image));
     dispatch(loadUserAction());
-    await setImage(null);
-    await setCaption("");
+    setImage(null);
+    setCaption("");
   };
 
   useEffect(() => {
+    if (inline) return;
     if (error) {
       toast.error(`${error}`);
       dispatch({ type: "clearErrors" });
@@ -45,24 +43,18 @@ const NewPost = () => {
       toast(`${message}`, {
         duration: 4000,
         position: "top-center",
-        style: {},
-        className: "",
         icon: "👏",
-        iconTheme: {
-          primary: "#000",
-          secondary: "#fff",
-        },
+        iconTheme: { primary: "#000", secondary: "#fff" },
       });
       dispatch({ type: "clearMessage" });
     }
-  }, [dispatch, error, message]);
+  }, [dispatch, error, message, inline]);
 
   return (
-    <div className="newPost">
-      {" "}
+    <div className={inline ? "newPostHome" : "newPost"}>
       <form className="newPostForm" onSubmit={handleOnSubmit}>
-        <Toaster />
-        <Typography variant="h4">New posts</Typography>
+        {!inline && <Toaster />}
+        <Typography variant={inline ? "h6" : "h4"}>New Post</Typography>
 
         {image && <img src={image} alt="postImages" />}
 
@@ -70,6 +62,7 @@ const NewPost = () => {
         <input
           type="text"
           placeholder="Your Caption"
+          value={caption}
           onChange={(e) => setCaption(e.target.value)}
         />
         <Button disabled={isLoading} type="submit">

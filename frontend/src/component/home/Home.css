@@ -65,6 +65,54 @@
   border-color: rgba(0, 0, 0, 0.5);
 }
 
+.newPostHome {
+  width: 100%;
+  max-width: 600px;
+  margin-bottom: 2vmax;
+}
+
+.newPostHome .newPostForm {
+  background-color: white;
+  border-radius: 20px;
+  padding: 1.5vmax 2vmax;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1vmax;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.newPostHome .newPostForm img {
+  width: 100%;
+  max-height: 30vh;
+  object-fit: contain;
+  border-radius: 10px;
+}
+
+.newPostHome .newPostForm input[type="text"] {
+  width: 100%;
+  padding: 0.7vmax 1vmax;
+  border-radius: 30px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  outline: none;
+  font: 100 1rem "Roboto", sans-serif;
+}
+
+.newPostHome .newPostForm input[type="file"] {
+  border-radius: 30px;
+}
+
+.newPostHome .newPostForm input[type="file"]::-webkit-file-upload-button {
+  background-color: rgb(38, 63, 173);
+  color: white;
+  padding: 0.6vmax 1.2vmax;
+  border-radius: 30px;
+  border: none;
+  font: 100 0.9rem "Roboto", sans-serif;
+  cursor: pointer;
+}
+
 .homeUser {
   display: flex;
   align-items: center;

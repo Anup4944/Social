@@ -12,7 +12,6 @@ import Login from "./component/login/Login";
 //   import("../component/login/Login")
 // );
 import Account from "./component/Account/Account";
-import NewPost from "./component/newPost/NewPost";
 import Register from "./component/Register/Register";
 import UpdateProfile from "./component/UpdateProfile/UpdateProfile";
 import UpdatePassword from "./component/UpdatePassword/UpdatePassword";
@@ -43,7 +42,6 @@ function App() {
         <Routes>
           <Route path="/" element={isAuth ? <Home /> : <Login />} />
           <Route path="/account" element={isAuth ? <Account /> : <Login />} />
-          <Route path="/newpost" element={isAuth ? <NewPost /> : <Login />} />
           <Route
             path="/register"
             element={isAuth ? <Account /> : <Register />}

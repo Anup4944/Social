@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./Home.css";
 import Post from "../Post/Post";
 import User from "../User/User";
+import NewPost from "../newPost/NewPost";
 import { useDispatch, useSelector } from "react-redux";
 import { getFollowingPostAction, getAllUsersAction } from "../../Actions/User";
 import Loader from "../loader/Loader";
@@ -34,18 +35,16 @@ const Home = () => {
       toast.error(likeError);
       dispatch({ type: "clearErrors" });
     }
-
     if (message) {
       toast(`${message}`, {
         duration: 4000,
         position: "top-center",
-        iconTheme: {
-          primary: "#000",
-          secondary: "#fff",
-        },
+        icon: "👏",
+        iconTheme: { primary: "#000", secondary: "#fff" },
       });
       dispatch({ type: "clearMessage" });
       dispatch(getAllUsersAction());
+      dispatch(getFollowingPostAction());
     }
   }, [error, message, dispatch, likeError]);
 
@@ -60,6 +59,8 @@ const Home = () => {
     <div className="home">
       <Toaster />
       <div className="homeleft">
+        <NewPost inline={true} />
+
         {posts && posts.length > 0 ? (
           posts.map((item) => (
             <Post
@@ -75,8 +76,8 @@ const Home = () => {
             />
           ))
         ) : (
-          <Typography>
-            Please follow other users to view their posts.{" "}
+          <Typography style={{ color: "white", marginTop: "2vmax" }}>
+            Please follow other users to view their posts.
           </Typography>
         )}
       </div>
@@ -112,7 +113,10 @@ const Home = () => {
             />
           ))
         ) : (
-          <Typography variant="body2" style={{ textAlign: "center", marginTop: "1vmax" }}>
+          <Typography
+            variant="body2"
+            style={{ textAlign: "center", marginTop: "1vmax" }}
+          >
             No users found
           </Typography>
         )}

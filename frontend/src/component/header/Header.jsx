@@ -1,12 +1,7 @@
 import React, { useState } from "react";
 import "./Header.css";
 import { Link } from "react-router-dom";
-import {
-  Home,
-  HomeOutlined,
-  Add,
-  AddOutlined,
-} from "@mui/icons-material";
+import { Home, HomeOutlined } from "@mui/icons-material";
 import { useSelector } from "react-redux";
 import { Avatar } from "@mui/material";
 
@@ -18,14 +13,6 @@ const Header = () => {
     <div className="header">
       <Link to="/" onClick={() => setTab("/")}>
         {tab === "/" ? <Home style={{ color: "black" }} /> : <HomeOutlined />}
-      </Link>
-
-      <Link to="/newpost" onClick={() => setTab("/newpost")}>
-        {tab === "/newpost" ? (
-          <Add style={{ color: "black" }} />
-        ) : (
-          <AddOutlined />
-        )}
       </Link>
 
       {/* <Link to="/account" onClick={() => setTab("/account")}>
