@@ -82,6 +82,56 @@
   gap: 0.5vmax; /* Optional: Adds consistent spacing between buttons */
 }
 
+.statsBox {
+  display: flex;
+  align-items: stretch;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+  margin: 1.5vmax 0;
+  overflow: hidden;
+  width: 100%;
+}
+
+.statItem {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.statItem > button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: 1vmax 0.5vmax;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2vmax;
+  transition: background 0.2s;
+  width: 100%;
+}
+
+.statItem > button:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.statItem > p {
+  padding: 1vmax 0.5vmax;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2vmax;
+  text-align: center;
+}
+
+.statDivider {
+  width: 1px;
+  background: rgba(0, 0, 0, 0.1);
+  margin: 0.8vmax 0;
+}
+
 .accountDetails {
   display: flex;
   justify-content: space-between;

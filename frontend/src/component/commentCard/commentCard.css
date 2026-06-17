@@ -38,11 +38,40 @@
   word-break: break-word;
 }
 
+.commentUser__actions {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  gap: 0.2vmax;
+}
+
+.commentUser__edit {
+  color: #1976d2 !important;
+  min-width: unset;
+  padding: 0.4vmax;
+}
+
 .commentUser__delete {
   color: #ff4444 !important;
-  margin-left: auto;
-  padding: 0.5vmax;
   min-width: unset;
+  padding: 0.4vmax;
+}
+
+.commentUser__editForm {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 0.4vmax;
+}
+
+.commentUser__editForm > input {
+  flex: 1;
+  padding: 0.4vmax 0.8vmax;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 20px;
+  outline: none;
+  font: 100 0.9rem "Roboto", sans-serif;
+  min-width: 0;
 }
 
 .commentUser__link:hover {
@@ -50,7 +79,6 @@
   color: #000;
 }
 
-/* Responsive adjustments */
 @media screen and (max-width: 768px) {
   .commentUser {
     gap: 0.5vmax;

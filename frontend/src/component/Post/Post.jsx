@@ -52,34 +52,28 @@ const Post = ({
 
   const { user } = useSelector((state) => state.user);
 
-  const handleOnClick = async () => {
-    setLiked(!liked);
-    await dispatch(likePost(postId));
-
+  const refreshPosts = () => {
     if (isAccount) {
       dispatch(getMyPostAction());
     } else {
       dispatch(getFollowingPostAction());
     }
-
     if (isHomePage) {
       dispatch(getUserPostAction(userId));
     }
   };
 
+  const handleOnClick = async () => {
+    setLiked(!liked);
+    await dispatch(likePost(postId));
+    refreshPosts();
+  };
+
   const handleOnSubmit = async (e) => {
     e.preventDefault();
     await dispatch(addCommentPostAction(postId, commentValue));
-
-    if (isAccount) {
-      dispatch(getMyPostAction());
-    } else {
-      dispatch(getFollowingPostAction());
-    }
-
-    if (isHomePage) {
-      dispatch(getUserPostAction(userId));
-    }
+    setCommentValue("");
+    refreshPosts();
   };
 
   const handleOnUpdate = (e) => {
@@ -92,7 +86,6 @@ const Post = ({
     await dispatch(deletePostAction(postId));
     dispatch(getMyPostAction());
     dispatch(loadUserAction());
-
     if (isHomePage) {
       dispatch(getUserPostAction(userId));
     }
@@ -122,16 +115,11 @@ const Post = ({
         <Avatar
           src={ownerImages}
           alt="User"
-          sx={{
-            height: "3vmax",
-            width: "3vmax",
-          }}
+          sx={{ height: "3vmax", width: "3vmax" }}
         />
-
         <Link to={`/user/${ownerId}`}>
           <Typography fontWeight={700}>{ownerName}</Typography>
         </Link>
-
         <Typography
           fontWeight={500}
           color="rgba(0,0,0,0.582)"
@@ -153,33 +141,22 @@ const Post = ({
             </Button>
           </div>
           <button
+            className="likesCount"
             onClick={() => setViewLike(!viewLike)}
-            disabled={likes.length === 0 ? true : false}
-            style={{
-              border: "none",
-              backgroundColor: "white",
-              cursor: "pointer",
-              margin: "1vmax 2vmax",
-            }}
+            disabled={likes.length === 0}
           >
-            {" "}
             <Typography>{likes.length} likes</Typography>
           </button>
         </div>
 
-        <Button aria-label="View comments">
-          <ChatBubbleOutline onClick={() => setCommentToogle(!commentToogle)} />
-          <Typography
-            style={{
-              border: "none",
-              backgroundColor: "white",
-              cursor: "pointer",
-              margin: "1vmax 2vmax",
-            }}
-          >
-            {comments.length} comments
-          </Typography>
-        </Button>
+        <button
+          className="commentAction"
+          onClick={() => setCommentToogle(!commentToogle)}
+          aria-label="View comments"
+        >
+          <ChatBubbleOutline fontSize="small" />
+          <Typography>{comments.length} comments</Typography>
+        </button>
 
         {isDelete ? (
           <Button onClick={deletePost} aria-label="Delete post">
@@ -187,9 +164,10 @@ const Post = ({
           </Button>
         ) : null}
       </div>
+
       <Dialog open={viewLike} onClose={() => setViewLike(!viewLike)}>
         <div className="DialogBox">
-          <Typography variant="h4"> Liked by</Typography>
+          <Typography variant="h4">Liked by</Typography>
           {likes.map((item) => (
             <User
               key={item._id}
@@ -206,7 +184,7 @@ const Post = ({
         onClose={() => setCommentToogle(!commentToogle)}
       >
         <div className="DialogBox">
-          <Typography variant="h4"> Comments</Typography>
+          <Typography variant="h4">Comments</Typography>
           <form className="commentForm" onSubmit={handleOnSubmit}>
             <input
               type="text"
@@ -231,6 +209,7 @@ const Post = ({
                 commentId={item._id}
                 postId={postId}
                 isAccount={isAccount}
+                refreshPosts={refreshPosts}
               />
             ))
           ) : (
@@ -244,7 +223,7 @@ const Post = ({
         onClose={() => setUpdateToogle(!updateToogle)}
       >
         <div className="DialogBox">
-          <Typography variant="h4"> Update caption</Typography>
+          <Typography variant="h4">Update caption</Typography>
           <form className="commentForm" onSubmit={handleOnUpdate}>
             <input
               type="text"

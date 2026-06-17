@@ -121,24 +121,25 @@ const UserProfile = () => {
 
             <Typography variant="h5">{user.name}</Typography>
 
-            <div>
-              <button onClick={() => setFollowersTogg(!followersTogg)}>
-                <Typography>Followers</Typography>
-              </button>
-
-              <Typography>{user.followers.length}</Typography>
-            </div>
-            <div>
-              <button onClick={() => setFollowingTogg(!followingTogg)}>
-                <Typography>Following</Typography>
-              </button>
-
-              <Typography>{user.following.length}</Typography>
-            </div>
-            <div>
-              <Typography>Posts</Typography>
-
-              <Typography>{user.posts.length}</Typography>
+            <div className="statsBox">
+              <div className="statItem">
+                <button onClick={() => setFollowersTogg(!followersTogg)}>
+                  <Typography variant="h6" fontWeight={700}>{user.followers.length}</Typography>
+                  <Typography variant="caption">Followers</Typography>
+                </button>
+              </div>
+              <div className="statDivider" />
+              <div className="statItem">
+                <button onClick={() => setFollowingTogg(!followingTogg)}>
+                  <Typography variant="h6" fontWeight={700}>{user.following.length}</Typography>
+                  <Typography variant="caption">Following</Typography>
+                </button>
+              </div>
+              <div className="statDivider" />
+              <div className="statItem">
+                <Typography variant="h6" fontWeight={700}>{user.posts.length}</Typography>
+                <Typography variant="caption">Posts</Typography>
+              </div>
             </div>
 
             {myProfile ? null : (
