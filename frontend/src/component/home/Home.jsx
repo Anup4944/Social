@@ -73,6 +73,7 @@ const Home = () => {
               ownerImages={item.owner.avatar.url}
               ownerName={item.owner.name}
               ownerId={item.owner._id}
+              createdAt={item.createdAt}
             />
           ))
         ) : (

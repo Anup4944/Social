@@ -89,6 +89,12 @@
   font-size: 1.7vmax;
 }
 
+.postTimestamp {
+  font-size: 0.75rem !important;
+  color: rgba(0, 0, 0, 0.4) !important;
+  padding: 0 1.5vmax 0.4vmax;
+}
+
 .DialogBox {
   min-width: min(500px, 90vw);
   max-height: 80vh;

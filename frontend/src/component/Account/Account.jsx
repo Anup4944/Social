@@ -18,8 +18,8 @@ const Account = () => {
   const dispatch = useDispatch();
 
   const [followersTogg, setFollowersTogg] = useState(false);
-
   const [followingTogg, setFollowingTogg] = useState(false);
+  const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
 
   const {
     error: likeError,
@@ -28,7 +28,6 @@ const Account = () => {
   } = useSelector((state) => state.like);
 
   const { isLoading, error, posts } = useSelector((state) => state.myPosts);
-
   const { user, isLoading: userLoading } = useSelector((state) => state.user);
 
   const handleOnLogout = async () => {
@@ -36,20 +35,17 @@ const Account = () => {
     toast("Logout success", {
       duration: 4000,
       position: "top-center",
-      style: {},
-      className: "",
-      icon: "👋 ",
-      iconTheme: {
-        primary: "#000",
-        secondary: "#fff",
-      },
+      icon: "👋",
+      iconTheme: { primary: "#000", secondary: "#fff" },
     });
   };
 
   const deleteProfile = async () => {
+    setDeleteConfirmOpen(false);
     await dispatch(deleteProfileAction());
     dispatch(logoutUserAction());
   };
+
   useEffect(() => {
     dispatch(getMyPostAction());
     dispatch(loadUserAction());
@@ -64,23 +60,17 @@ const Account = () => {
       toast.error(likeError);
       dispatch({ type: "clearErrors" });
     }
-
     if (message) {
       toast(`${message}`, {
         duration: 4000,
         position: "top-center",
-        style: {},
-        className: "",
         icon: "👏",
-        iconTheme: {
-          primary: "#000",
-          secondary: "#fff",
-        },
+        iconTheme: { primary: "#000", secondary: "#fff" },
       });
-
       dispatch({ type: "clearMessage" });
     }
   }, [error, message, dispatch, likeError]);
+
   return isLoading === true || userLoading ? (
     <Loader />
   ) : (
@@ -99,6 +89,7 @@ const Account = () => {
               ownerImages={post.owner.avatar.url}
               ownerName={post.owner.name}
               ownerId={post.owner._id}
+              createdAt={post.createdAt}
               isAccount={true}
               isDelete={true}
             />
@@ -107,40 +98,33 @@ const Account = () => {
           <Typography variant="h6">You have no post yet</Typography>
         )}
       </div>
-      <div className="accountright">
-        <Avatar
-          src={user.avatar.url}
-          sx={{ height: "8vmax", width: "8vmax" }}
-        />
 
+      <div className="accountright">
+        <Avatar src={user.avatar.url} sx={{ height: "8vmax", width: "8vmax" }} />
         <Typography variant="h5">{user.name}</Typography>
+
         <div className="accountDetails">
           <div>
             <button>
               <Typography>Posts</Typography>
-              <Typography variant="h7">({user.posts.length})</Typography>
+              <Typography variant="body2" fontWeight={600}>({user.posts.length})</Typography>
             </button>
           </div>
           <div>
             <button onClick={() => setFollowersTogg(!followersTogg)}>
               <Typography variant="h6">Followers</Typography>
-              <Typography variant="h7">({user.followers.length})</Typography>
+              <Typography variant="body2" fontWeight={600}>({user.followers.length})</Typography>
             </button>
           </div>
-
           <div>
             <button onClick={() => setFollowingTogg(!followingTogg)}>
               <Typography variant="h6">Following</Typography>
-              <Typography variant="h7">({user.following.length})</Typography>
+              <Typography variant="body2" fontWeight={600}>({user.following.length})</Typography>
             </button>
           </div>
         </div>
 
-        <Button
-          variant="contained"
-          style={{ cursor: "pointer" }}
-          onClick={handleOnLogout}
-        >
+        <Button variant="contained" onClick={handleOnLogout}>
           Logout
         </Button>
 
@@ -150,57 +134,54 @@ const Account = () => {
         <Button
           variant="text"
           style={{ color: "red", margin: "2vmax" }}
-          onClick={deleteProfile}
+          onClick={() => setDeleteConfirmOpen(true)}
           disabled={deleteLoading}
         >
           Delete profile
         </Button>
 
-        <Dialog
-          open={followersTogg}
-          onClose={() => setFollowersTogg(!followersTogg)}
-        >
+        <Dialog open={followersTogg} onClose={() => setFollowersTogg(false)}>
           <div className="DialogBox">
             <Typography variant="h4">Followers</Typography>
-
             {user && user.followers.length > 0 ? (
               user.followers.map((item) => (
-                <User
-                  key={item._id}
-                  userId={item._id}
-                  name={item.name}
-                  avatar={item.avatar.url}
-                />
+                <User key={item._id} userId={item._id} name={item.name} avatar={item.avatar.url} />
               ))
             ) : (
-              <Typography style={{ margin: "2vmax" }}>
-                You have no followers
-              </Typography>
+              <Typography style={{ margin: "2vmax" }}>You have no followers</Typography>
             )}
           </div>
         </Dialog>
 
-        <Dialog
-          open={followingTogg}
-          onClose={() => setFollowingTogg(!followingTogg)}
-        >
+        <Dialog open={followingTogg} onClose={() => setFollowingTogg(false)}>
           <div className="DialogBox">
             <Typography variant="h4">Following</Typography>
-
             {user && user.following.length > 0 ? (
               user.following.map((item) => (
-                <User
-                  key={item._id}
-                  userId={item._id}
-                  name={item.name}
-                  avatar={item.avatar.url}
-                />
+                <User key={item._id} userId={item._id} name={item.name} avatar={item.avatar.url} />
               ))
             ) : (
-              <Typography style={{ margin: "2vmax" }}>
-                Not following anyone yet
-              </Typography>
+              <Typography style={{ margin: "2vmax" }}>Not following anyone yet</Typography>
             )}
+          </div>
+        </Dialog>
+
+        <Dialog open={deleteConfirmOpen} onClose={() => setDeleteConfirmOpen(false)}>
+          <div className="DialogBox" style={{ textAlign: "center" }}>
+            <Typography variant="h5" style={{ marginBottom: "1vmax" }}>
+              Delete your account?
+            </Typography>
+            <Typography variant="body2" color="text.secondary" style={{ marginBottom: "2vmax" }}>
+              This is permanent and cannot be undone. All your posts, comments, and data will be removed.
+            </Typography>
+            <div style={{ display: "flex", gap: "1vmax", justifyContent: "center" }}>
+              <Button variant="outlined" onClick={() => setDeleteConfirmOpen(false)}>
+                Cancel
+              </Button>
+              <Button variant="contained" color="error" onClick={deleteProfile} disabled={deleteLoading}>
+                Yes, delete
+              </Button>
+            </div>
           </div>
         </Dialog>
       </div>

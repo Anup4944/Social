@@ -25,6 +25,23 @@ import {
 import User from "../User/User";
 import CommentCard from "../commentCard/CommentCard";
 
+const timeAgo = (date) => {
+  if (!date) return "";
+  const diff = Date.now() - new Date(date).getTime();
+  const mins = Math.floor(diff / 60000);
+  if (mins < 1) return "just now";
+  if (mins < 60) return `${mins}m ago`;
+  const hrs = Math.floor(mins / 60);
+  if (hrs < 24) return `${hrs}h ago`;
+  const days = Math.floor(hrs / 24);
+  if (days < 7) return `${days}d ago`;
+  return new Date(date).toLocaleDateString(undefined, {
+    month: "short",
+    day: "numeric",
+    year: days > 365 ? "numeric" : undefined,
+  });
+};
+
 const Post = ({
   postId,
   caption,
@@ -34,6 +51,7 @@ const Post = ({
   ownerImages,
   ownerId,
   ownerName,
+  createdAt,
   isDelete = false,
   isAccount = false,
   isHomePage = false,
@@ -41,15 +59,12 @@ const Post = ({
 }) => {
   const [liked, setLiked] = useState(false);
   const [viewLike, setViewLike] = useState(false);
-
   const [commentValue, setCommentValue] = useState("");
   const [commentToogle, setCommentToogle] = useState(false);
-
   const [updateToogle, setUpdateToogle] = useState(false);
   const [captionValue, setCaptionValue] = useState(caption);
 
   const dispatch = useDispatch();
-
   const { user } = useSelector((state) => state.user);
 
   const refreshPosts = () => {
@@ -86,103 +101,73 @@ const Post = ({
     await dispatch(deletePostAction(postId));
     dispatch(getMyPostAction());
     dispatch(loadUserAction());
-    if (isHomePage) {
-      dispatch(getUserPostAction(userId));
-    }
+    if (isHomePage) dispatch(getUserPostAction(userId));
   };
 
   useEffect(() => {
-    likes.forEach((item) => {
-      if (item._id === user._id) {
-        setLiked(true);
-      }
-    });
+    setLiked(likes.some((item) => item._id === user._id));
   }, [likes, user._id]);
 
   return (
     <div className="post">
       <div className="postHeader">
-        {isAccount ? (
+        {isAccount && (
           <Button onClick={() => setUpdateToogle(!updateToogle)} aria-label="Edit post">
             <MoreVert />
           </Button>
-        ) : null}
+        )}
       </div>
 
       <img src={postImages} alt="Post" />
 
       <div className="postDetails">
-        <Avatar
-          src={ownerImages}
-          alt="User"
-          sx={{ height: "3vmax", width: "3vmax" }}
-        />
+        <Avatar src={ownerImages} alt="User" sx={{ height: "3vmax", width: "3vmax" }} />
         <Link to={`/user/${ownerId}`}>
           <Typography fontWeight={700}>{ownerName}</Typography>
         </Link>
-        <Typography
-          fontWeight={500}
-          color="rgba(0,0,0,0.582)"
-          style={{ alignSelf: "center" }}
-        >
+        <Typography fontWeight={500} color="rgba(0,0,0,0.582)" style={{ alignSelf: "center" }}>
           {caption}
         </Typography>
       </div>
+
+      {createdAt && (
+        <Typography className="postTimestamp">{timeAgo(createdAt)}</Typography>
+      )}
 
       <div className="actionComponent">
         <div className="likeComponent">
           <div className="postFooter">
             <Button onClick={handleOnClick} aria-label={liked ? "Unlike post" : "Like post"}>
-              {liked ? (
-                <Favorite style={{ color: "red" }} />
-              ) : (
-                <FavoriteBorder />
-              )}
+              {liked ? <Favorite style={{ color: "red" }} /> : <FavoriteBorder />}
             </Button>
           </div>
-          <button
-            className="likesCount"
-            onClick={() => setViewLike(!viewLike)}
-            disabled={likes.length === 0}
-          >
+          <button className="likesCount" onClick={() => setViewLike(!viewLike)} disabled={likes.length === 0}>
             <Typography>{likes.length} likes</Typography>
           </button>
         </div>
 
-        <button
-          className="commentAction"
-          onClick={() => setCommentToogle(!commentToogle)}
-          aria-label="View comments"
-        >
+        <button className="commentAction" onClick={() => setCommentToogle(!commentToogle)} aria-label="View comments">
           <ChatBubbleOutline fontSize="small" />
           <Typography>{comments.length} comments</Typography>
         </button>
 
-        {isDelete ? (
+        {isDelete && (
           <Button onClick={deletePost} aria-label="Delete post">
             <DeleteOutline />
           </Button>
-        ) : null}
+        )}
       </div>
 
-      <Dialog open={viewLike} onClose={() => setViewLike(!viewLike)}>
+      <Dialog open={viewLike} onClose={() => setViewLike(false)}>
         <div className="DialogBox">
           <Typography variant="h4">Liked by</Typography>
           {likes.map((item) => (
-            <User
-              key={item._id}
-              userId={item._id}
-              name={item.name}
-              avatar={item.avatar.url}
-            />
+            <User key={item._id} userId={item._id} name={item.name} avatar={item.avatar.url} />
           ))}
         </div>
       </Dialog>
 
-      <Dialog
-        open={commentToogle}
-        onClose={() => setCommentToogle(!commentToogle)}
-      >
+      <Dialog open={commentToogle} onClose={() => setCommentToogle(false)}>
         <div className="DialogBox">
           <Typography variant="h4">Comments</Typography>
           <form className="commentForm" onSubmit={handleOnSubmit}>
@@ -193,11 +178,8 @@ const Post = ({
               placeholder="Comment here"
               required
             />
-            <Button type="submit" variant="contained">
-              Add
-            </Button>
+            <Button type="submit" variant="contained">Add</Button>
           </form>
-
           {comments && comments.length > 0 ? (
             comments.map((item) => (
               <CommentCard
@@ -218,10 +200,7 @@ const Post = ({
         </div>
       </Dialog>
 
-      <Dialog
-        open={updateToogle}
-        onClose={() => setUpdateToogle(!updateToogle)}
-      >
+      <Dialog open={updateToogle} onClose={() => setUpdateToogle(false)}>
         <div className="DialogBox">
           <Typography variant="h4">Update caption</Typography>
           <form className="commentForm" onSubmit={handleOnUpdate}>
@@ -232,9 +211,7 @@ const Post = ({
               placeholder="Caption here"
               required
             />
-            <Button type="submit" variant="contained">
-              Update
-            </Button>
+            <Button type="submit" variant="contained">Update</Button>
           </form>
         </div>
       </Dialog>

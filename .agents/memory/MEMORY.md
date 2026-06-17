@@ -1,1 +1,1 @@
-- [Vite migration for CRA .js JSX files](vite-jsx-js-migration.md) — .js files with JSX need a custom transform plugin + `jsx:"automatic"` to avoid "React is not defined" crash.
+- [MERN social app — key decisions](mern-social-decisions.md) — stack, build pipeline, and non-obvious patterns worth knowing before touching the code
