@@ -59,8 +59,7 @@ const NewPost = ({ inline = false }) => {
         {image && <img src={image} alt="postImages" />}
 
         <input type="file" accept="image/*" onChange={handleOnImgChange} />
-        <input
-          type="text"
+        <textarea
           placeholder="Your Caption"
           value={caption}
           onChange={(e) => setCaption(e.target.value)}

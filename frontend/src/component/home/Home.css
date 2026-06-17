@@ -68,6 +68,7 @@
 .newPostHome {
   width: 100%;
   max-width: 600px;
+  margin-top: 2vmax;
   margin-bottom: 0;
 }
 
@@ -90,13 +91,16 @@
   border-radius: 10px;
 }
 
-.newPostHome .newPostForm input[type="text"] {
+.newPostHome .newPostForm textarea {
   width: 100%;
   padding: 0.7vmax 1vmax;
-  border-radius: 30px;
+  border-radius: 12px;
   border: 1px solid rgba(0, 0, 0, 0.2);
   outline: none;
   font: 100 1rem "Roboto", sans-serif;
+  resize: none;
+  height: 80px;
+  box-sizing: border-box;
 }
 
 .newPostHome .newPostForm input[type="file"] {
